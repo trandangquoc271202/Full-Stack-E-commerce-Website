@@ -4,6 +4,7 @@ import {BsSearch} from "react-icons/bs";
 
 const Header = () => {
     return <>
+
         <header className="header-top-strip py-3">
             <div className="container-xxl">
                 <div className="row">
@@ -23,7 +24,7 @@ const Header = () => {
                 <div className="row align-items-center">
                     <div className="col-2">
                         <h1 className="mb-0">
-                            <Link className="text-white">DigiShop</Link>
+                            <Link to="/" className="text-white">DigiShop</Link>
                         </h1>
                     </div>
                     <div className="col-5">
@@ -54,7 +55,7 @@ const Header = () => {
                                 </Link>
                             </div>
                             <div>
-                                <Link className="d-flex align-items-center gap-10 text-white">
+                                <Link to="/Login" className="d-flex align-items-center gap-10 text-white">
                                     <img src="images/user.svg" alt="user"/>
                                     <p className="mb-0">
                                         Đăng nhập
@@ -92,16 +93,17 @@ const Header = () => {
                                     <ul className="dropdown-menu">
                                         <li><Link className="dropdown-item text-white" to="#">Action</Link></li>
                                         <li><Link className="dropdown-item text-white" to="#">Another action</Link></li>
-                                        <li><Link className="dropdown-item text-white" to="#">Something else here</Link></li>
+                                        <li><Link className="dropdown-item text-white" to="#">Something else here</Link>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="menu-links">
                                 <div className="align-items-center d-flex gap-15">
-                                    <NavLink to="/">Trang chủ</NavLink>
-                                    <NavLink to="/">Sản phẩm</NavLink>
-                                    <NavLink to="/">Blog</NavLink>
-                                    <NavLink to="/contact">Liên hệ</NavLink>
+                                    <NavLink className="nav-item" to="/">Trang chủ</NavLink>
+                                    <NavLink className="nav-item" to="/">Sản phẩm</NavLink>
+                                    <NavLink className="nav-item" to="/">Blog</NavLink>
+                                    <NavLink className="nav-item" to="/contact">Liên hệ</NavLink>
                                 </div>
                             </div>
                         </div>
