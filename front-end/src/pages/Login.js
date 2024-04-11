@@ -5,7 +5,7 @@ const Login = () => {
     return (
         <>
             <div className="login-wrapper py-5 home-weapper-2">
-                <div className="row">
+                <div className="">
                     <div className="col-12">
                         <div className="auth-card">
                             <h3 className="text-center">Đăng nhập</h3>
@@ -14,7 +14,8 @@ const Login = () => {
                                     <input type="email" name="email" placeholder="Email" className="form-control"/>
                                 </div>
                                 <div className="mt-1">
-                                    <input type="password" name="password" placeholder="Password" className="form-control"/>
+                                    <input type="password" name="password" placeholder="Password"
+                                           className="form-control"/>
                                 </div>
                                 <div className="">
                                     <Link to="/forgot-password">Forgot Password?</Link>
