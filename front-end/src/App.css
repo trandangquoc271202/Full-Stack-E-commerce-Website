@@ -15,6 +15,7 @@
     --color-232f3e: #232f3e;
     --color-bf4800: #bf4800;
     --color-ededed: #ededed;
+    --color-1c1c1b: #1c1c1b
 }
 
 .card-wrapper {
@@ -50,12 +51,19 @@ a {
     color: white;
     font-size: 14px;
     padding: 13px 33px;
-    border-radius: 15px;
+    border-radius: 25px;
 }
 
 .button:hover {
     background-color: var(--color-febd69);
     color: #131921;
+}
+
+.section-heading {
+    font-size: 26px;
+    line-height: 32px;
+    font-weight: 500;
+    margin-bottom: 15px;
 }
 
 /*Header*/
@@ -261,22 +269,113 @@ footer .input-group-text {
 
 /*categories end*/
 
+/*Product card*/
+
+.product-card {
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.product-card:hover .action-bar {
+    right: 15px;
+}
+
+.product-card .product-details h6 {
+    color: var(--color-bf4800);
+    font-size: 13px;
+}
+
+.product-card .product-details h5 {
+    color: var(--color-1c1c1b);
+    font-size: 15px;
+}
+
+.product-card .product-details p.price {
+    color: var(--color-1c1c1b);
+    font-size: 16px;
+}
+
+.action-bar {
+    top: 10%;
+    right: -23px;
+    transition: 0.3s;
+}
+
+.wishlist-icon {
+    top: 2%;
+    right: 15px;
+}
+
+/*Product card end*/
 /*Home end*/
 
 /*Blog card*/
 
-.card{
+.card {
     box-shadow: 0 0 10px #0000001a;
     border: none;
     border-radius: 10px;
 }
-.card img{
+
+.card img {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
 /*Blog card end*/
 
+/*Detail Product*/
+
+.description-wrapper h4 {
+    font-size: 26px;
+    color: var(--color-1c1c1b);
+}
+
+.description-wrapper p {
+    font-size: 14px;
+    color: var(--color-777777);
+}
+
+.review-inner-wrapper {
+    background-color: white;
+    padding: 30px;
+}
+
+.review-head {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.review-head h4 {
+    font-size: 18px;
+    color: var(--color-1c1c1b);
+}
+
+.review-head p, .review-head a {
+    font-size: 14px;
+    color: var(--color-777777);
+}
+
+.review-form {
+    font-size: 16px;
+    color: var(--color-777777);
+}
+
+.review-form {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.review p {
+    font-size: 14px;
+    color: var(--color-777777);
+}
+
+.review:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/*Detail Product end*/
 /*Auth card*/
 
 .auth-card {
