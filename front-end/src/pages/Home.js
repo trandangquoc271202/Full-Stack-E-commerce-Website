@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import Marquee from "react-fast-marquee"
 import BlogCard from "../components/BlogCard";
+import ProductCard from "../components/ProductCard";
 
 const Home = () => {
     return (
@@ -213,6 +214,22 @@ const Home = () => {
             <section className="blog-wrapper py-5 home-wrapper-2">
                 <div className="container-xxl">
                     <div className="row">
+                        <div className="col-12">
+                            <h3 className="section-heading">Bộ sưu tập nổi bật</h3>
+                        </div>
+                        <ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
+                    </div>
+                </div>
+            </section>
+            <section className="blog-wrapper py-5 home-wrapper-2">
+                <div className="container-xxl">
+                    <div className="row">
+                        <div className="col-12">
+                            <h3 className="section-heading">Blog của chúng tôi</h3>
+                        </div>
                         <BlogCard image="images/blog-1.jpg"/>
                         <BlogCard image="images/blog-1.jpg"/>
                         <BlogCard image="images/blog-1.jpg"/>
