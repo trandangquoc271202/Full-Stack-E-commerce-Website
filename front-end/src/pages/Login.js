@@ -11,17 +11,17 @@ const Login = () => {
                             <h3 className="text-center">Đăng nhập</h3>
                             <form action="" className="d-flex flex-column gap-30">
                                 <div className="">
-                                    <input type="email" name="email" placeholder="Email" className="form-control"/>
+                                    <input type="email" name="email" placeholder="Email" className="form-control" required={true}/>
                                 </div>
                                 <div className="mt-1">
-                                    <input type="password" name="password" placeholder="Password"
-                                           className="form-control"/>
+                                    <input type="password" name="password" placeholder="Mật khẩu"
+                                           className="form-control" required={true}/>
                                 </div>
                                 <div className="">
-                                    <Link to="/forgot-password">Forgot Password?</Link>
+                                    <Link className="text-dark" to="/forgot-password">Quên mật khẩu?</Link>
                                     <div className=" mt-3 d-flex justify-content-center gap-15 align-items-center">
-                                        <button className="button btn btn-primary border-0">Login</button>
-                                        <Link to="/Signup" className="button signup">SignUp</Link>
+                                        <button className="button btn btn-primary border-0">Đăng nhập</button>
+                                        <Link to="/Signup" className="button signup">Đăng ký</Link>
                                     </div>
                                 </div>
                             </form>

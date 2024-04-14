@@ -6,6 +6,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import DetailProduct from "./pages/DetailProduct";
+import ForgotPassword from "./pages/ForgotPassword";
+import SignUp from "./pages/SignUp";
 function App() {
   return (
     <>
@@ -16,6 +18,8 @@ function App() {
           <Route path="about"  element={<About/>}/>
           <Route path="Contact"  element={<Contact/>}/>
           <Route path="Login"  element={<Login/>}/>
+          <Route path="Forgot-password"  element={<ForgotPassword/>}/>
+          <Route path="Signup"  element={<SignUp/>}/>
           {/*<Route path="Detail/:id"  element={<DetailProduct/>}/>*/}
           <Route path="Detail"  element={<DetailProduct/>}/>
         </Route>
