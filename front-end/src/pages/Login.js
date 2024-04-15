@@ -1,9 +1,13 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import BreadCrumb from "../components/BreadCrumb";
+import Meta from "../components/Meta";
 
 const Login = () => {
     return (
         <>
+            <Meta title="Đăng nhập"></Meta>
+            <BreadCrumb title="Đăng nhập"></BreadCrumb>
             <div className="login-wrapper py-5 home-weapper-2">
                 <div className="">
                     <div className="col-12">
