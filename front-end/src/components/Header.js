@@ -91,17 +91,19 @@ const Header = () => {
                                         <span className="me-5 d-inline-block"> Danh mục</span>
                                     </button>
                                     <ul className="dropdown-menu">
-                                        <li><Link className="dropdown-item text-white" to="#">Action</Link></li>
-                                        <li><Link className="dropdown-item text-white" to="#">Another action</Link></li>
-                                        <li><Link className="dropdown-item text-white" to="#">Something else here</Link>
-                                        </li>
+                                        <li><Link className="dropdown-item text-white" to="#">Máy tính</Link></li>
+                                        <li><Link className="dropdown-item text-white" to="#">Máy ảnh</Link></li>
+                                        <li><Link className="dropdown-item text-white" to="#">Đồng hồ</Link></li>
+                                        <li><Link className="dropdown-item text-white" to="#">Phụ kiện</Link></li>
+                                        <li><Link className="dropdown-item text-white" to="#">TV</Link></li>
+                                        <li><Link className="dropdown-item text-white" to="#">Máy tính bảng</Link></li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="menu-links">
                                 <div className="align-items-center d-flex gap-15">
                                     <NavLink className="nav-item" to="/">Trang chủ</NavLink>
-                                    <NavLink className="nav-item" to="/">Sản phẩm</NavLink>
+                                    <NavLink className="nav-item" to="/store">Sản phẩm</NavLink>
                                     <NavLink className="nav-item" to="/">Blog</NavLink>
                                     <NavLink className="nav-item" to="/contact">Liên hệ</NavLink>
                                 </div>

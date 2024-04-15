@@ -276,6 +276,7 @@ footer .input-group-text {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
+    /*margin-bottom: 10px;*/
 }
 
 .product-card:hover .action-bar {
@@ -385,10 +386,12 @@ footer .input-group-text {
     margin: 30px auto;
     border-radius: 10px;
 }
-.auth-card p{
-   font-size: 13px;
+
+.auth-card p {
+    font-size: 13px;
     color: var(--color-777777);
 }
+
 .auth-card h3 {
     font-size: 19px;
     font-weight: 500;
@@ -422,6 +425,97 @@ footer .input-group-text {
 
 /*Auth card end*/
 
+/*Store*/
+
+.filter-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.filter-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--color-1c1c1b);
+    margin-bottom: 20px;
+}
+
+.filter-card ul, .filter-card .form-check-label {
+    list-style-type: none;
+    font-size: 13px;
+    line-height: 30px;
+    color: var(--color-777777);
+    cursor: pointer;
+}
+
+.sub-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-1c1c1b);
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.colors {
+    list-style-type: none;
+    flex-wrap: wrap;
+    gap: 10px;
+    display: flex;
+}
+
+.colors li {
+    width: 20px;
+    height: 20px;
+    background-color: #bf4800;
+    border-radius: 50%;
+}
+
+.filter-sort-grid {
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.grid img {
+    width: 35px;
+    height: 35px;
+    background-color: #f2f2f2;
+    border-radius: 3px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.gr-12{
+    width: 100%;
+}
+.gr-6{
+    width: 48%;
+}
+.gr-4{
+    width: 32%;
+}
+.gr-3{
+    width: 24%;
+}
+.gr-12 .product-card{
+    display: flex;
+    gap: 20px;
+}
+.gr-12 .product-card .product-image{
+    width: 270px;
+}
+.gr-12 .action-bar{
+    top: 13%;
+}
+.gr-6 .product-image{
+    width: 100%;
+}
+.gr-6 .product-image img{
+    margin: auto;
+    display: block;
+}
+/*Store end*/
 
 /*Responsive header*/
 /*     !* CSS cho container chính *!*/
