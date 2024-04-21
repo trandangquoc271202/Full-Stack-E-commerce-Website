@@ -338,7 +338,7 @@ footer .input-group-text {
 }
 .main-product-image img{
     width: 100% !important;
-    height: 500px !important;
+    height: 100% !important;
     object-fit: cover;
 }
 .other-product-images>div{
@@ -359,6 +359,8 @@ footer .input-group-text {
     padding: 20px;
     background-color: white;
     border-radius: 10px;
+    width: 500px;
+    z-index: 1000;
 }
 .main-product-details{
     padding: 20px;
@@ -484,7 +486,14 @@ footer .input-group-text {
     background-color: var(--color-febd69);
     color: var(--color-131921);
 }
-
+.signup {
+    background-color: var(--color-febd69);
+    color: var(--color-131921);
+}
+.signup:hover {
+    background-color: var(--color-131921);
+    color: white;
+}
 .auth-card .signup:hover {
     background-color: var(--color-131921);
     color: white;
