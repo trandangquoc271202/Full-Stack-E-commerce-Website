@@ -1,17 +1,107 @@
 import React, {useState} from "react";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
+import ReactImageZoom from '../model/ReactImageZoom';
+import Meta from "../components/Meta";
+import BreadCrumb from "../components/BreadCrumb";
+import Color from "../components/Color";
+import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const DetailProduct = () => {
-    const [orderProduct, setorderProduct] = useState(true);
+    const [orderProduct, setOrderProduct] = useState(true);
+    const props = {height: 300, zoomWidth: 300, img: "images/product1.png"};
+
     return (
         <>
+            <Meta title="Chi tiết sản phẩm"></Meta>
+            <BreadCrumb title="Chi tiết sản phẩm"></BreadCrumb>
             <div className="main-product-wrapper py-5 home-wrapper-2">
                 <div className="container-xxl">
                     <div className="row">
-                        <div className="col-12">
-                            <div className="col-6"></div>
-                            <div className="col-6"></div>
+                        <div className="col-6">
+                            <div className="main-product-image">
+                                <div>
+                                    <ReactImageZoom  {...props} />
+                                </div>
+                            </div>
+                            <div className="other-product-images d-flex flex-wrap gap-15">
+                                <div><img src="images/product1.png" alt="" className=""/></div>
+                                <div><img src="images/product1.png" alt="" className=""/></div>
+                                <div><img src="images/product1.png" alt="" className=""/></div>
+                                <div><img src="images/product1.png" alt="" className=""/></div>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="main-product-details">
+                                <div className="border-bottom">
+                                    <h3 className="title">
+                                        Đồng hồ GMW-B5000D-2
+                                    </h3>
+                                </div>
+                                <div className="border-bottom py-3">
+                                    <p className="price">20.000.000 VNĐ</p>
+                                    <div className="d-flex align-items-center gap-10">
+                                        <ReactStars
+                                            count={5}
+                                            size={24}
+                                            value={4}
+                                            activeColor="#ffd700" edit={false}/>
+                                        <p className="mb-0 mb-0 text-review">(2 đánh giá)</p>
+                                    </div>
+                                    <a className="review-button" href="#review"> Viết đánh giá</a>
+                                </div>
+                                <div className="border-bottom">
+                                    <div className="d-flex gap-10 align-items-center my-2">
+                                        <h3 className="product-heading">Loại: </h3>
+                                        <p className="product-data">Đồng hồ</p>
+                                    </div>
+                                    <div className="d-flex gap-10 align-items-center my-2">
+                                        <h3 className="product-heading">Thương hiệu: </h3>
+                                        <p className="product-data">G-SHOCK</p>
+                                    </div>
+                                    <div className="d-flex gap-10 align-items-center my-2">
+                                        <h3 className="product-heading">Danh mục: </h3>
+                                        <p className="product-data">Đồng hồ</p>
+                                    </div>
+                                    <div className="d-flex gap-10 align-items-center my-2">
+                                        <h3 className="product-heading">Thẻ: </h3>
+                                        <p className="product-data">Đồng hồ</p>
+                                    </div>
+                                    <div className="d-flex gap-10 align-items-center my-2">
+                                        <h3 className="product-heading">Có sẵn: </h3>
+                                        <p className="product-data">15</p>
+                                    </div>
+                                    <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                                        <h3 className="product-heading">Size: </h3>
+                                        <div className="d-flex flex-wrap gap-15">
+                                            <span
+                                                className="badge border-1 bg-white text-dark border-secondary border">S</span>
+                                            <span
+                                                className="badge border-1 bg-white text-dark border-secondary border">M</span>
+                                            <span
+                                                className="badge border-1 bg-white text-dark border-secondary border">L</span>
+                                            <span
+                                                className="badge border-1 bg-white text-dark border-secondary border">XL</span>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                                        <h3 className="product-heading">Màu sắc: </h3>
+                                        <Color/>
+                                    </div>
+                                    <div className="d-flex gap-10 flex-row mt-2 mb-3">
+                                        <h3 className="product-heading">Số lượng: </h3>
+                                        <div className="">
+                                            <input className="form-control" type="number" min={1} max={10}
+                                                   required={true} name="" id="" style={{width: "70px"}}/>
+                                        </div>
+                                        <div className="d-flex align-items-center gap-30">
+                                            <button className="button btn btn-primary border-0">Thêm vào giỏ hàng</button>
+                                            <button className="button border-0 signup">Mua ngay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +161,7 @@ const DetailProduct = () => {
                                         )}
                                     </div>
                                 </div>
-                                <div className="review-form py-4">
+                                <div id="review" className="review-form py-4">
                                     <h4 className="mb-2">Viết đánh giá</h4>
                                     <form className="d-flex flex-column gap-15" action="">
                                         {/*<div>*/}
@@ -91,7 +181,8 @@ const DetailProduct = () => {
                                                 activeColor="#ffd700" edit={true}/>
                                         </div>
                                         <div>
-                                            <textarea id="" name="" className="form-control w-100" cols="30" rows="4" placeholder="Nội dung"/>
+                                            <textarea id="" name="" className="form-control w-100" cols="30" rows="4"
+                                                      placeholder="Nội dung"/>
                                         </div>
                                         <div className="d-flex justify-content-end">
                                             <button className="button border-0">Gửi</button>
@@ -120,7 +211,9 @@ const DetailProduct = () => {
                                                 value={5}
                                                 activeColor="#ffd700" edit={false}/>
                                         </div>
-                                        <p className="mt-3">ok, quá suất xắc thiết kế đẹp k khác gì hàng 5 triệu thậm chí còn hơn vì có dynamic như iphone 14 15 vậy,pj dùng khá là ok ,shop đóng gói cẩn thận, giao hàng nhanh</p>
+                                        <p className="mt-3">ok, quá suất xắc thiết kế đẹp k khác gì hàng 5 triệu thậm
+                                            chí còn hơn vì có dynamic như iphone 14 15 vậy,pj dùng khá là ok ,shop đóng
+                                            gói cẩn thận, giao hàng nhanh</p>
                                     </div>
                                 </div>
                             </div>

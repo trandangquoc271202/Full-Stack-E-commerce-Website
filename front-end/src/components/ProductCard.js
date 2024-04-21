@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 
 const ProductCard = (props) => {
     const {grid} = props;
-    console.log(grid);
+    // console.log(grid);
     let location = useLocation();
     return (
         <div className={`${location.pathname == "/store" ? `gr-${grid}` : "gr-3"}`}>
