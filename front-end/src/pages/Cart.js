@@ -2,6 +2,7 @@ import React from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import {MdDeleteOutline} from "react-icons/md";
+import {Link} from "react-router-dom";
 
 const Cart = () => {
     return (
@@ -71,6 +72,16 @@ const Cart = () => {
                                 <div className="cart-col-4">
                                     <h5 className="price">5.000.000VNĐ</h5>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="col-12 py-2 mt-4">
+                            <div className="d-flex justify-content-between align-items-baseline">
+                                <Link className="button" to={"/store"}>Tiếp tục mua hàng</Link>
+                            <div className="d-flex align-items-end flex-column">
+                                <h4>Tổng tiền: 10.000.000 VNĐ</h4>
+                                <p>Phí vận chuyển sẽ được tính toán tại trang thanh toán</p>
+                                <Link className="button" >Thanh toán</Link>
+                            </div>
                             </div>
                         </div>
                     </div>
