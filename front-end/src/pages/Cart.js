@@ -80,7 +80,7 @@ const Cart = () => {
                             <div className="d-flex align-items-end flex-column">
                                 <h4>Tổng tiền: 10.000.000 VNĐ</h4>
                                 <p>Phí vận chuyển sẽ được tính toán tại trang thanh toán</p>
-                                <Link className="button" >Thanh toán</Link>
+                                <Link className="button" to={"/checkout"}>Thanh toán</Link>
                             </div>
                             </div>
                         </div>

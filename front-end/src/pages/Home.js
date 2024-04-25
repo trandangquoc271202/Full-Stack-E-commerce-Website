@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import Marquee from "react-fast-marquee"
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
+import {Container} from "react-bootstrap";
 
 const Home = () => {
     return (
