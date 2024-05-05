@@ -5,13 +5,10 @@ import ReactImageZoom from '../model/ReactImageZoom';
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Color from "../components/Color";
-import {Link} from "react-router-dom";
-import {Button} from "react-bootstrap";
 
 const DetailProduct = () => {
     const [orderProduct, setOrderProduct] = useState(true);
-    const props = {height: 300, zoomWidth: 300, img: "images/product1.png"};
-
+    const props = {width:500,height:500, zoomWidth: 600, img: "images/product1.png"};
     return (
         <>
             <Meta title="Chi tiết sản phẩm"></Meta>
@@ -89,15 +86,16 @@ const DetailProduct = () => {
                                         <h3 className="product-heading">Màu sắc: </h3>
                                         <Color/>
                                     </div>
-                                    <div className="d-flex gap-10 flex-row mt-2 mb-3">
+                                    <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
                                         <h3 className="product-heading">Số lượng: </h3>
                                         <div className="">
                                             <input className="form-control" type="number" min={1} max={10}
-                                                   required={true} name="" id="" style={{width: "70px"}}/>
+                                                   required={true} defaultValue={1} name="" id="" style={{width: "70px"}}/>
                                         </div>
                                         <div className="d-flex align-items-center gap-30">
-                                            <button className="button btn btn-primary border-0">Thêm vào giỏ hàng</button>
-                                            <button className="button border-0 signup">Mua ngay</button>
+                                            <button className="button btn btn-primary border-0">Thêm vào giỏ hàng
+                                            </button>
+                                            <button className="button border-0 signup" >Mua ngay</button>
                                         </div>
                                     </div>
                                 </div>
