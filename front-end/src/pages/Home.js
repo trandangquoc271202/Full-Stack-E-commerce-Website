@@ -8,6 +8,7 @@ import {Container} from "react-bootstrap";
 const Home = () => {
     return (
         <>
+
             <section className="home-wrapper-1 py-5">
                 <div className="container-xxl">
                     <div className="row">

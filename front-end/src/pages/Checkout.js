@@ -74,11 +74,28 @@ const Checkout=()=>{
                         </div>
                         <div className="col-5">
                             <div className="border-bottom py-4">
-                                <div className="d-flex gap-10 align-items-center">
+                                <div className="d-flex mb-3 gap-10 align-items-center">
                                     <div className="w-75 d-flex gap-10">
                                         <div className="w-25 position-relative">
                                             <span
                                                 className="badge bg-secondary text-white rounded-circle p-2 position-absolute">1</span>
+                                            <img style={{top: "-10px", right: "2px"}} src="images/watch.jpg"
+                                                 className="img-fluid" alt="product"/>
+                                        </div>
+                                        <div>
+                                            <h5 className="total-price">GMW-B5000D-2</h5>
+                                            <p className="total-price">G-SHOCK</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex-grow-1">
+                                        <h5>2.000.000VND</h5>
+                                    </div>
+                                </div>
+                                <div className="d-flex mb-3 gap-10 align-items-center">
+                                    <div className="w-75 d-flex gap-10">
+                                        <div className="w-25 position-relative">
+                                            <span
+                                                className="badge bg-secondary text-white rounded-circle p-2 position-absolute">2</span>
                                             <img style={{top: "-10px", right: "2px"}} src="images/watch.jpg"
                                                  className="img-fluid" alt="product"/>
                                         </div>
