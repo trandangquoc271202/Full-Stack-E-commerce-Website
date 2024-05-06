@@ -18,7 +18,7 @@ const ProductCard = (props) => {
                     <img src={props.image} className="img-fluid" alt="product"/>
                 </div>
                 <div className="product-details">
-                    <h6 className="brand">{props.brand}</h6>
+                <h6 className="brand">{props.brand}</h6>
                     <h5 className="product-title">{props.title}</h5>
                     <ReactStars
                         count={5}

@@ -4,6 +4,7 @@ import Marquee from "react-fast-marquee"
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import {Container} from "react-bootstrap";
+import SpecialProduct from "../components/SpecialProduct";
 
 const Home = () => {
     return (
@@ -119,56 +120,56 @@ const Home = () => {
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Cameras</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/camera.jpg" alt="camera"/>
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Smart Tv</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/tv.jpg" alt="camera"/>
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Smart watches</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/headphone.jpg" alt="camera"/>
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Music & Gaming</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/speaker.jpg" alt="camera"/>
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Cameras</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/camera.jpg" alt="camera"/>
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Smart Tv</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/tv.jpg" alt="camera"/>
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Smart watches</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/headphone.jpg" alt="camera"/>
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
                                         <h6>Music & Gaming</h6>
-                                        <p>10 Items</p>
+                                        <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/speaker.jpg" alt="camera"/>
                                 </div>
@@ -213,19 +214,71 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <section className="blog-wrapper py-5 home-wrapper-2">
+            <section className="popular-wrapper py-5 home-wrapper-2">
                 <div className="container-xxl">
-                    <div className="row">
+                    <div className="row justify-content-between">
                         <div className="col-12">
-                            <h3 className="section-heading">Bộ sưu tập nổi bật</h3>
+                            <h3 className="section-heading">Bộ sưu tập phổ biến</h3>
                         </div>
-                        <ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
+                    </div>
+                    <div className="row">
+                        <ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
                     </div>
                 </div>
             </section>
+            <section className="special-wrapper py-5 home-wrapper-2">
+                <div className="container-xxl">
+                    <div className="row">
+                        <div className="col-12">
+                            <h3 className="section-heading">Sản phẩm đặc biệt</h3>
+                        </div>
+                        <div className="row">
+                            <SpecialProduct/>
+                            <SpecialProduct/>
+                            <SpecialProduct/>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section className="featured-wrapper py-5 home-wrapper-2">
+                <div className="container-xxl">
+                    <div className="row justify-content-between">
+                        <div className="col-12">
+                            <h3 className="section-heading">Bộ sưu tập nổi bật</h3>
+                        </div>
+                        <ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
+                        <ProductCard image="images/watch.jpg" brand="G-SHOCK" title="GMW-B5000D-2"
+                                     price="22.000.000 VNĐ"/>
+                    </div>
+                </div>
+            </section>
+            {/*<section className="famous-wrapper py-5 home-wrapper-2">*/}
+            {/*    <div className="container-xxl">*/}
+            {/*        <div className="row">*/}
+            {/*            <div className="col-3">*/}
+            {/*                <div className="famous-card bg-dark">*/}
+            {/*                    <img src="images/tab.jpg" alt="famous" />*/}
+            {/*                    <h5>Màn hình lớn</h5>*/}
+            {/*                    <h6>Đồng hồ thông minh dòng 7</h6>*/}
+            {/*                    <p>Từ 1.000.000 đến 5.000.000 VNĐ</p>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</section>*/}
             <section className="blog-wrapper py-5 home-wrapper-2">
                 <div className="container-xxl">
                     <div className="row">
