@@ -10,6 +10,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
 import Store from "./pages/Store";
 import TestImage from "./pages/TestImage";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 function App() {
   return (
     <>
@@ -24,8 +26,9 @@ function App() {
           <Route path="Forgot-password"  element={<ForgotPassword/>}/>
           <Route path="Signup"  element={<SignUp/>}/>
           <Route path="test"  element={<TestImage/>}/>
-          {/*<Route path="Detail/:id"  element={<DetailProduct/>}/>*/}
           <Route path="Detail"  element={<DetailProduct/>}/>
+          <Route path="Cart"  element={<Cart/>}/>
+          <Route path="Checkout"  element={<Checkout/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
