@@ -12,6 +12,7 @@ import Store from "./pages/Store";
 import TestImage from "./pages/TestImage";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import BlogList from "./pages/BlogList";
 function App() {
   return (
     <>
@@ -22,6 +23,7 @@ function App() {
           <Route path="about"  element={<About/>}/>
           <Route path="Contact"  element={<Contact/>}/>
           <Route path="store"  element={<Store/>}/>
+          <Route path="blogs"  element={<BlogList/>}/>
           <Route path="Login"  element={<Login/>}/>
           <Route path="Forgot-password"  element={<ForgotPassword/>}/>
           <Route path="Signup"  element={<SignUp/>}/>

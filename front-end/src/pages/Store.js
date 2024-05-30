@@ -175,27 +175,27 @@ const Store = () => {
                             </div>
                             <div className="product-list pb-5">
                                 <div className="d-flex gap-10 flex-wrap">
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
+                                    <ProductCard grid={grid} image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
+                                                 price="22.000.000 VNĐ"/>
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-pova-5_2_.png" brand="TECNO" title="TECNO POVA"
+                                                 price="4.000.000 VNĐ"/>
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-spark-20-pro-plus_1__2.png" brand="TECNO" title="TECNO SPARK"
+                                                 price="5.050.000 VNĐ"/>
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_m3_slot.png" brand="APPLE" title="Air M3"
+                                                 price="27.190.000 VNĐ"/>
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/l/o/loa-bluetooth-alpha-works-aw-w88_2__1.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/l/o/loa-bluetooth-sony-srs-xb100-spa-0.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14-pro_2__5.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/_/t_i_xu_ng_22__6.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/ipad-10-9-inch-2022.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/ipad-air-5.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
+                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/a/tai-nghe-khong-day-huawei-freeclip-0.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
                                     <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>

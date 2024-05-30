@@ -24,7 +24,7 @@ const Header = () => {
                 <div className="row align-items-center">
                     <div className="col-2">
                         <h1 className="mb-0">
-                            <Link to="/" className="text-white">DigiShop</Link>
+                            <Link to="/" className="text-white">DigitalShop</Link>
                         </h1>
                     </div>
                     <div className="col-5">
@@ -66,8 +66,8 @@ const Header = () => {
                                 <Link className="d-flex align-items-center gap-10 text-white" to={"/cart"}>
                                     <img src="images/cart.svg" alt="cart"/>
                                     <div className="d-flex flex-column gap-10">
-                                        <span className="badge bg-white text-dark">0</span>
-                                        <p className="mb-0">500</p>
+                                        <span className="badge bg-white text-dark">2</span>
+                                        <p className="mb-0"></p>
                                     </div>
                                 </Link>
                             </div>
@@ -104,7 +104,7 @@ const Header = () => {
                                 <div className="align-items-center d-flex gap-15">
                                     <NavLink className="nav-item" to="/">Trang chủ</NavLink>
                                     <NavLink className="nav-item" to="/store">Sản phẩm</NavLink>
-                                    <NavLink className="nav-item" to="/">Blog</NavLink>
+                                    <NavLink className="nav-item" to="/blogs">Blogs</NavLink>
                                     <NavLink className="nav-item" to="/contact">Liên hệ</NavLink>
                                 </div>
                             </div>
