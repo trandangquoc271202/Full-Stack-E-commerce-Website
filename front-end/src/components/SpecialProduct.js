@@ -9,7 +9,7 @@ const SpecialProduct = () => {
                 <div className="special-product-card">
                     <div className="d-flex justify-content-between">
                         <div>
-                            <img src="images/watch.jpg" className="img-fluid" alt="watch"/>
+                            <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/ipad-air-5.png" className="img-fluid" alt="watch"/>
                         </div>
                         <div className="special-product-content">
                             <h5 className="brand">Hevels</h5>

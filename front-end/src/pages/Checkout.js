@@ -79,16 +79,16 @@ const Checkout=()=>{
                                         <div className="w-25 position-relative">
                                             <span
                                                 className="badge bg-secondary text-white rounded-circle p-2 position-absolute">1</span>
-                                            <img style={{top: "-10px", right: "2px"}} src="images/watch.jpg"
+                                            <img style={{top: "-10px", right: "2px"}} src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/g/r/group_150_1_3.png"
                                                  className="img-fluid" alt="product"/>
                                         </div>
                                         <div>
-                                            <h5 className="total-price">GMW-B5000D-2</h5>
-                                            <p className="total-price">G-SHOCK</p>
+                                            <h5 className="total-price">Marshall Minor 3</h5>
+                                            <p className="total-price">Marshall</p>
                                         </div>
                                     </div>
                                     <div className="flex-grow-1">
-                                        <h5>2.000.000VND</h5>
+                                        <h5>3.000.000VND</h5>
                                     </div>
                                 </div>
                                 <div className="d-flex mb-3 gap-10 align-items-center">
@@ -96,23 +96,23 @@ const Checkout=()=>{
                                         <div className="w-25 position-relative">
                                             <span
                                                 className="badge bg-secondary text-white rounded-circle p-2 position-absolute">2</span>
-                                            <img style={{top: "-10px", right: "2px"}} src="images/watch.jpg"
+                                            <img style={{top: "-10px", right: "2px"}} src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_10__3_11.png"
                                                  className="img-fluid" alt="product"/>
                                         </div>
                                         <div>
-                                            <h5 className="total-price">GMW-B5000D-2</h5>
-                                            <p className="total-price">G-SHOCK</p>
+                                            <h5 className="total-price">MSI GF63</h5>
+                                            <p className="total-price">MSI</p>
                                         </div>
                                     </div>
                                     <div className="flex-grow-1">
-                                        <h5>2.000.000VND</h5>
+                                        <h5>18.000.000VND</h5>
                                     </div>
                                 </div>
                             </div>
                             <div className="border-bottom py-4">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <p className="total">Tổng phụ</p>
-                                    <p className="total-price">4.000.000 VND</p>
+                                    <p className="total-price">21.000.000 VND</p>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <p className="mb-0 total">Phí vận chuyển</p>
@@ -121,7 +121,7 @@ const Checkout=()=>{
                             </div>
                             <div className="d-flex justify-content-between align-nav-item border-bottom py-4">
                                 <h4 className="total">Tổng</h4>
-                                <h5 className="total-price">4.000.000 VND</h5>
+                                <h5 className="total-price">21.100.000 VND</h5>
                             </div>
                         </div>
                     </div>
