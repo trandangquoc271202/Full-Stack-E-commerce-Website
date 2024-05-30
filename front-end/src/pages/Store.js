@@ -124,16 +124,16 @@ const Store = () => {
                                     </div>
                                     <div className="random-products d-flex">
                                         <div className="w-50">
-                                            <img src="images/watch.jpg" className="img-fluid" alt="watch"/>
+                                            <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14-pro_2__5.png" className="img-fluid" alt="watch"/>
                                         </div>
                                         <div className="w-50">
-                                            <h5>GMW-B5000D-2</h5>
+                                            <h5>Iphone 15</h5>
                                             <ReactStars
                                                 count={5}
                                                 size={24}
                                                 value={4}
                                                 activeColor="#ffd700" edit={false}/>
-                                            <p>2.000.000 VNĐ</p>
+                                            <p>22.000.000 VNĐ</p>
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +198,7 @@ const Store = () => {
                                     <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/a/tai-nghe-khong-day-huawei-freeclip-0.png" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
                                     <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
+                                                 title="GMW-B5000D-2" price="2.000.000 VNĐ"/>
                                 </div>
                             </div>
                         </div>
