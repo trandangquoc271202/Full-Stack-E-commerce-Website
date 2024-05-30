@@ -104,7 +104,7 @@ const Header = () => {
                                 <div className="align-items-center d-flex gap-15">
                                     <NavLink className="nav-item" to="/">Trang chủ</NavLink>
                                     <NavLink className="nav-item" to="/store">Sản phẩm</NavLink>
-                                    <NavLink className="nav-item" to="/">Blog</NavLink>
+                                    <NavLink className="nav-item" to="/blogs">Blogs</NavLink>
                                     <NavLink className="nav-item" to="/contact">Liên hệ</NavLink>
                                 </div>
                             </div>
