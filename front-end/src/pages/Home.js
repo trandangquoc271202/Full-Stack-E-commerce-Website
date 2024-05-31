@@ -15,11 +15,11 @@ const Home = () => {
                     <div className="row">
                         <div className="col-6">
                             <div className="main-banner position-relative">
-                                <img src="images/main-banner-1.jpg" className="img-fluid rounded-3" alt="main banner"/>
+                                <img src="https://cdn.tgdd.vn/Files/2023/03/17/1518606/1-290923-143626.jpg"  className="img-fluid rounded-3 " alt="main banner"/>
                                 <div className="main-banner-content position-absolute">
                                     <h4>SIÊU GIẢM GIÁ.</h4>
-                                    <h5>Ipad S13+ Pro.</h5>
-                                    <p>Từ 23 triệu hoặc 1 triệu/tháng.</p>
+                                    <h5>Iphone 15</h5>
+                                    <p>Trả góp 1 triệu/tháng.</p>
                                     <Link className="button">MUA NGAY</Link>
                                 </div>
                             </div>
