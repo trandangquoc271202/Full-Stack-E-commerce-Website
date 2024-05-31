@@ -5,14 +5,14 @@
 }
 
 :root {
-    --color-131921: #131921;
-    --color-3b4149: #3b4149;
+    --color-131921: #ee4d2d;
+    --color-3b4149: #e16d56;
     --color-fdba69: #fdba69;
-    --color-1f303c: #1f303c;
+    --color-1f303c: #ef5f42;
     --color-777777: #777777;
     --color-f5f5f7: #f5f5f7;
     --color-febd69: #febd69;
-    --color-232f3e: #232f3e;
+    --color-232f3e: #ee4d2d;
     --color-bf4800: #bf4800;
     --color-ededed: #ededed;
     --color-1c1c1b: #1c1c1b
@@ -33,7 +33,9 @@ a {
     text-decoration: none;
     display: inline-block;
 }
-
+.gap-5{
+    gap: 10px;
+}
 .gap-10 {
     gap: 10px;
 }
@@ -310,6 +312,17 @@ footer .input-group-text {
 }
 
 /*Product card end*/
+
+/*Product special*/
+
+.special-product-card{
+    padding: 20px 10px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/*Product special end*/
+
 /*Home end*/
 
 /*Blog card*/
@@ -674,7 +687,25 @@ footer .input-group-text {
     font-size: 16px;
     color: var(--color-777777);
 }
+
+
 /*Checkout end*/
+
+
+/*Contact*/
+.contact-wrapper-bottom{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: #3d3b3b;
+}
+.contact-wrapper-bottom input, .contact-wrapper-bottom textarea{
+    background-color: #f7f7f5;
+}
+/*Contact end*/
+
+
+
 /*Responsive header*/
 /*     !* CSS cho container chính *!*/
 /* .header-upper-links {*/

@@ -22,16 +22,16 @@ const Cart = () => {
                             <div className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
                                 <div className="cart-col-1 gap-15 d-flex align-items-center">
                                     <div className="w-25">
-                                        <img src="images/watch.jpg" className="img-fluid" alt=""/>
+                                        <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_10__3_11.png" className="img-fluid" alt=""/>
                                     </div>
                                     <div className="w-75">
-                                        <p>Đồng hồ GMW-B5000D-2</p>
+                                        <p>MSI GF63</p>
                                         <p>Màu sắc: Đen</p>
-                                        <p>Kích thước: M</p>
+                                        <p>Kích thước: </p>
                                     </div>
                                 </div>
                                 <div className="cart-col-2">
-                                    <h5 className="price">5.000.000VNĐ</h5>
+                                    <h5 className="price">18.000.000VNĐ</h5>
                                 </div>
                                 <div className="cart-col-3 d-flex align-items-center gap-15">
                                     <div>
@@ -43,22 +43,22 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div className="cart-col-4">
-                                    <h5 className="price">5.000.000VNĐ</h5>
+                                    <h5 className="price">18.000.000VNĐ</h5>
                                 </div>
                             </div>
                             <div className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
                                 <div className="cart-col-1 gap-15 d-flex align-items-center">
                                     <div className="w-25">
-                                        <img src="images/watch.jpg" className="img-fluid" alt=""/>
+                                        <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/g/r/group_150_1_3.png" className="img-fluid" alt=""/>
                                     </div>
                                     <div className="w-75">
-                                        <p>Đồng hồ GMW-B5000D-2</p>
+                                        <p>Marshall Minor 3</p>
                                         <p>Màu sắc: Đen</p>
-                                        <p>Kích thước: M</p>
+                                        <p>Kích thước: </p>
                                     </div>
                                 </div>
                                 <div className="cart-col-2">
-                                    <h5 className="price">5.000.000VNĐ</h5>
+                                    <h5 className="price">3.000.000VNĐ</h5>
                                 </div>
                                 <div className="cart-col-3 d-flex align-items-center gap-15">
                                     <div>
@@ -70,7 +70,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div className="cart-col-4">
-                                    <h5 className="price">5.000.000VNĐ</h5>
+                                    <h5 className="price">3.000.000VNĐ</h5>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@ const Cart = () => {
                             <div className="d-flex justify-content-between align-items-baseline">
                                 <Link className="button" to={"/store"}>Tiếp tục mua hàng</Link>
                             <div className="d-flex align-items-end flex-column">
-                                <h4>Tổng tiền: 10.000.000 VNĐ</h4>
+                                <h4>Tổng tiền: 21.000.000 VNĐ</h4>
                                 <p>Phí vận chuyển sẽ được tính toán tại trang thanh toán</p>
                                 <Link className="button" to={"/checkout"}>Thanh toán</Link>
                             </div>

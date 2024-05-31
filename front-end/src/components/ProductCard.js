@@ -4,7 +4,6 @@ import ReactStars from "react-rating-stars-component";
 
 const ProductCard = (props) => {
     const {grid} = props;
-    // console.log(grid);
     let location = useLocation();
     return (
         <div className={`${location.pathname == "/store" ? `gr-${grid}` : "gr-3"}`}>
@@ -15,10 +14,12 @@ const ProductCard = (props) => {
                     </Link>
                 </div>
                 <div className="product-image">
+                    <Link to="/detail">
                     <img src={props.image} className="img-fluid" alt="product"/>
+                    </Link>
                 </div>
                 <div className="product-details">
-                    <h6 className="brand">{props.brand}</h6>
+                <h6 className="brand">{props.brand}</h6>
                     <h5 className="product-title">{props.title}</h5>
                     <ReactStars
                         count={5}
