@@ -9,7 +9,6 @@ import SpecialProduct from "../components/SpecialProduct";
 const Home = () => {
     return (
         <>
-
             <section className="home-wrapper-1 py-5">
                 <div className="container-xxl">
                     <div className="row">
@@ -147,7 +146,7 @@ const Home = () => {
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
-                                        <h6>Cameras</h6>
+                                        <h6>Smart Phone</h6>
                                         <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/camera.jpg" alt="camera"/>
@@ -243,6 +242,7 @@ const Home = () => {
                             <SpecialProduct/>
                             <SpecialProduct/>
                             <SpecialProduct/>
+                            <SpecialProduct/>
                         </div>
                     </div>
                 </div>
@@ -285,10 +285,10 @@ const Home = () => {
                         <div className="col-12">
                             <h3 className="section-heading">Blog của chúng tôi</h3>
                         </div>
-                        <BlogCard image="images/blog-1.jpg"/>
-                        <BlogCard image="images/blog-1.jpg"/>
-                        <BlogCard image="images/blog-1.jpg"/>
-                        <BlogCard image="images/blog-1.jpg"/>
+                        <BlogCard title="So Sánh Copilot, Copilot Pro" content="Microsoft đang dốc sức đầu tư vào lĩnh vực trí tuệ nhân tạo (AI), khẳng định đây là hướng đi chiến lược cho tương lai của công ty. Bắt đầu với Copilot ra mắt..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Fthanhhoang%2FPh%C3%A2n%20bi%E1%BB%87t%20Copilot%2Fcropped-images%2Fphan-biet-copilot-copilot-pro-copilot-cover-0-0-0-0-1717061654.jpg&w=1080&q=75"/>
+                        <BlogCard title="Đi du lịch từ nay không phải rườm rà..." content="Là một iFan chân chính, sử dụng đồng thời cả iPhone, Apple Watch, AirPods thì việc mang theo một mớ cáp sạc khi đi du lịch có thể..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Ftiz%2Ftren-tay-de-sac-magsafe-mophie-3-in1-travel-cover.jpg&w=1080&q=75"/>
+                        <BlogCard title="So Sánh Copilot, Copilot Pro" content="Microsoft đang dốc sức đầu tư vào lĩnh vực trí tuệ nhân tạo (AI), khẳng định đây là hướng đi chiến lược cho tương lai của công ty. Bắt đầu với Copilot ra mắt..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Fthanhhoang%2FPh%C3%A2n%20bi%E1%BB%87t%20Copilot%2Fcropped-images%2Fphan-biet-copilot-copilot-pro-copilot-cover-0-0-0-0-1717061654.jpg&w=1080&q=75"/>
+                        <BlogCard title="Đi du lịch từ nay không phải rườm rà..." content="Là một iFan chân chính, sử dụng đồng thời cả iPhone, Apple Watch, AirPods thì việc mang theo một mớ cáp sạc khi đi du lịch có thể..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Ftiz%2Ftren-tay-de-sac-magsafe-mophie-3-in1-travel-cover.jpg&w=1080&q=75"/>
                     </div>
                 </div>
             </section>

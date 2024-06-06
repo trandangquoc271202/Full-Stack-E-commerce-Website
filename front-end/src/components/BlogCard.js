@@ -1,9 +1,11 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const BlogCard = (props) => {
+    const {grid} = props;
+    let location = useLocation();
     return (
-        <div className="col-3 gr-6">
+        <div className={`${location.pathname == "/blogs" ? `gr-${grid}` : "gr-3"}`}>
             <div className="card">
                 <img src={props.image} className="img-fluid" alt="blog"/>
                 <div className="card-body">
