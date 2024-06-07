@@ -82,6 +82,17 @@ const updateProduct = asyncHandler(async (req, res, next) => {
     }
 });
 
+const deleteProduct = asyncHandler(async (req, res) => {
+    const {id} = req.params;
+    validationMongoId(id);
+    try {
+        const deleteProduct = await Product.findByIdAndDelete(id);
+        res.json(deleteProduct);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
 const findById = asyncHandler(async (req, res) => {
     const id = req.params.id;
     validationMongoId(id);
@@ -94,9 +105,11 @@ const findById = asyncHandler(async (req, res) => {
     }
 });
 
+
 module.exports = {
     createProduct,
     getAllProduct,
     updateProduct,
-    findById
+    findById,
+    deleteProduct
 };
