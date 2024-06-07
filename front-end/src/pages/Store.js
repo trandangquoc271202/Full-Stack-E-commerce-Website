@@ -1,11 +1,35 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
+import axios from "axios";
 
 const Store = () => {
     const [grid, setGrid] = useState(3);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/product')
+            .then(response => {
+                setProducts(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
     return (
         <>
             <Meta title="Sản phẩm"></Meta>
@@ -177,10 +201,6 @@ const Store = () => {
                                 <div className="d-flex gap-10 flex-wrap">
                                     <ProductCard grid={grid} image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
                                                  price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-pova-5_2_.png" brand="TECNO" title="TECNO POVA"
-                                                 price="4.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-spark-20-pro-plus_1__2.png" brand="TECNO" title="TECNO SPARK"
-                                                 price="5.050.000 VNĐ"/>
                                     <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_m3_slot.png" brand="APPLE" title="Air M3"
                                                  price="27.190.000 VNĐ"/>
                                     <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/l/o/loa-bluetooth-alpha-works-aw-w88_2__1.png" brand="G-SHOCK"
@@ -199,6 +219,16 @@ const Store = () => {
                                                  title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
                                     <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
                                                  title="GMW-B5000D-2" price="2.000.000 VNĐ"/>
+                                    {products.length > 0 ? products.map(product => (
+                                        <ProductCard
+                                            key={product._id}
+                                            grid={grid}
+                                            image={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'}
+                                            brand={product.brand}
+                                            title={product.title}
+                                            price={product.price}
+                                        />
+                                    )) : <p>Loading...</p>}
                                 </div>
                             </div>
                         </div>
