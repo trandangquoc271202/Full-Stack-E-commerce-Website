@@ -41,6 +41,7 @@ var productSchema = new mongoose.Schema(
             {
                 public_id: String,
                 url: String,
+                asset_id: String,
             },
         ],
         color: [],
