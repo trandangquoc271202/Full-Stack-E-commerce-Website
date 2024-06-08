@@ -12,7 +12,7 @@ import Store from "./pages/Store";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import BlogList from "./pages/BlogList";
-import ProductList from "./pages/ProductList";
+import Favorite from "./pages/Favorite";
 function App() {
   return (
     <>
@@ -30,7 +30,7 @@ function App() {
           <Route path="Detail"  element={<DetailProduct/>}/>
           <Route path="Cart"  element={<Cart/>}/>
           <Route path="Checkout"  element={<Checkout/>}/>
-          <Route path="productlist" element={<ProductList/>}/>
+          <Route path="favorite" element={<Favorite/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -3,38 +3,34 @@ import {Link} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import {MdFavorite} from "react-icons/md";
 
-const ProductCard = (props) => {
-    const {grid} = props;
-    // let location = useLocation();
+const FavoriteCard = (props) => {
+    const { grid,product, toggleFavorite } = props;
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
     return (
-        // <div className={`${location.pathname == "/store" ? `gr-${grid}` : "gr-3"}`}>
             <div className={`${grid != null ? `gr-${grid}` : "gr-3"}`}>
-            {/*</div>*/}
             <div className="product-card position-relative">
-                <div className="wishlist-icon position-absolute">
-                    <Link to="">
-                        <img src="images/wish.svg" alt="wishlist"/>
-                        {/*<MdFavorite style={{ "color" : "red"}}/>*/}
-                    </Link>
+                <div className="favorite-icon position-absolute">
+                    <div className="favorite-icon position-absolute" onClick={() => toggleFavorite(product._id)}>
+                        <MdFavorite  style={{color: "red", cursor: "pointer"}}/>
+                    </div>
                 </div>
                 <div className="product-image">
                     <Link to="/detail">
-                    <img src={props.image} className="img-fluid" alt="product"/>
+                        <img src={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'} className="img-fluid" alt="product"/>
                     </Link>
                 </div>
                 <div className="product-details">
-                <h6 className="brand">{props.brand}</h6>
-                    <h5 className="product-title">{props.title}</h5>
+                <h6 className="brand">{product.brand}</h6>
+                    <h5 className="product-title">{product.title}</h5>
                     <ReactStars
                         count={5}
                         size={24}
                         value={4}
                         activeColor="#ffd700" edit={false}/>
-                    <p className="price">{formatter.format(props.price)}</p>
+                    <p className="price">{formatter.format(product.price)}</p>
 
                 </div>
                 <div className="action-bar position-absolute">
@@ -54,4 +50,4 @@ const ProductCard = (props) => {
         </div>
     );
 }
-export default ProductCard;
+export default FavoriteCard;

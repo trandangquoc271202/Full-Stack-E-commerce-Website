@@ -4,6 +4,7 @@ import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
+import API_URL from "../env/Constants";
 
 const Store = () => {
     // const [grid, setGrid] = useState(3);
@@ -41,7 +42,7 @@ const Store = () => {
         const fetchProducts = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('http://localhost:5000/api/product', {
+                const response = await axios.get(`${API_URL}/api/product`, {
                     params: {
                         page,
                         limit
@@ -258,11 +259,11 @@ const Store = () => {
                                 </div>
                             </div>
                             <div className="pagination align-items-center justify-content-center">
-                                <button className="button-pagination btn-primary border-0" onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}
+                                <button className="button-pagination btn-primary border-0 m-lg-3" onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}
                                         disabled={page === 1}>Trước
                                 </button>
                                 <span>Trang {page}</span>
-                                <button className="button-pagination btn-primary border-0" onClick={() => setPage(prevPage => prevPage + 1)}
+                                <button className="button-pagination btn-primary border-0 m-lg-3" onClick={() => setPage(prevPage => prevPage + 1)}
                                         disabled={products.length < limit}>Sau
                                 </button>
                             </div>
