@@ -227,14 +227,14 @@ const DetailProduct = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
-                                     price="22.000.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-pova-5_2_.png" brand="TECNO" title="TECNO POVA"
-                                     price="4.000.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-spark-20-pro-plus_1__2.png" brand="TECNO" title="TECNO SPARK"
-                                     price="5.050.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_m3_slot.png" brand="APPLE" title="Air M3"
-                                     price="27.190.000 VNĐ"/>
+                        {/*<ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"*/}
+                        {/*             price="22.000.000 VNĐ"/>*/}
+                        {/*<ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-pova-5_2_.png" brand="TECNO" title="TECNO POVA"*/}
+                        {/*             price="4.000.000 VNĐ"/>*/}
+                        {/*<ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-spark-20-pro-plus_1__2.png" brand="TECNO" title="TECNO SPARK"*/}
+                        {/*             price="5.050.000 VNĐ"/>*/}
+                        {/*<ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_m3_slot.png" brand="APPLE" title="Air M3"*/}
+                        {/*             price="27.190.000 VNĐ"/>*/}
                     </div>
                 </div>
             </section>

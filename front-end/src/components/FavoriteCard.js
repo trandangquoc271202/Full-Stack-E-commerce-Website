@@ -28,7 +28,7 @@ const FavoriteCard = (props) => {
                     <ReactStars
                         count={5}
                         size={24}
-                        value={4}
+                        value={product.totalrating}
                         activeColor="#ffd700" edit={false}/>
                     <p className="price">{formatter.format(product.price)}</p>
 
