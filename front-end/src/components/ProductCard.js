@@ -5,7 +5,6 @@ import {MdFavorite} from "react-icons/md";
 
 const ProductCard = (props) => {
     const {grid, toggleFavorite, product} = props;
-    // let location = useLocation();
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
@@ -18,14 +17,16 @@ const ProductCard = (props) => {
                             <img src="images/wish.svg" alt="wishlist"/>}
                 </div>
                 <div className="product-image">
-                    <Link to="/detail">
+                    <Link to={"/products/"+product._id}>
                         <img src={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'}
                              className="img-fluid" alt="product"/>
                     </Link>
                 </div>
                 <div className="product-details">
                     <h6 className="brand">{product.brand}</h6>
+                    <Link to={"/products/"+product._id}>
                     <h5 className="product-title">{product.title}</h5>
+                    </Link>
                     <ReactStars
                         count={5}
                         size={24}

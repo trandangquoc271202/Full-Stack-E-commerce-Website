@@ -14,6 +14,7 @@ const Home = () => {
     const [productsPopular, setProductsPopular] = useState([]);
     const [productsFeature, setProductsFeature] = useState([]);
     const [productFavorite, setProductFavorite] = useState([]);
+    const [blogs, setBlogs] = useState([]);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(4);
@@ -27,6 +28,7 @@ const Home = () => {
             });
     };
     const toggleFavorite = (productId) => {
+        if (!isLogin) return;
         axios.put(`${API_URL}/api/product/favorite`, {prodId: productId })
             .then(response => {
                 // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
@@ -85,9 +87,23 @@ const Home = () => {
                 setError(error.message);
             }
         };
+        const fetchBlogs = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/blog`, {
+                    params: {
+                        page,
+                        limit
+                    }
+                });
+                setBlogs(response.data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
         fetchProducts();
         fetchProductsPopular();
         fetchProductsFeature();
+        fetchBlogs();
         if(isLogin){
             fetchFavorites();
         }
@@ -357,30 +373,18 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            {/*<section className="famous-wrapper py-5 home-wrapper-2">*/}
-            {/*    <div className="container-xxl">*/}
-            {/*        <div className="row">*/}
-            {/*            <div className="col-3">*/}
-            {/*                <div className="famous-card bg-dark">*/}
-            {/*                    <img src="images/tab.jpg" alt="famous" />*/}
-            {/*                    <h5>Màn hình lớn</h5>*/}
-            {/*                    <h6>Đồng hồ thông minh dòng 7</h6>*/}
-            {/*                    <p>Từ 1.000.000 đến 5.000.000 VNĐ</p>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
             <section className="blog-wrapper py-5 home-wrapper-2">
                 <div className="container-xxl">
                     <div className="row">
                         <div className="col-12">
                             <h3 className="section-heading">Blog của chúng tôi</h3>
                         </div>
-                        <BlogCard title="So Sánh Copilot, Copilot Pro" content="Microsoft đang dốc sức đầu tư vào lĩnh vực trí tuệ nhân tạo (AI), khẳng định đây là hướng đi chiến lược cho tương lai của công ty. Bắt đầu với Copilot ra mắt..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Fthanhhoang%2FPh%C3%A2n%20bi%E1%BB%87t%20Copilot%2Fcropped-images%2Fphan-biet-copilot-copilot-pro-copilot-cover-0-0-0-0-1717061654.jpg&w=1080&q=75"/>
-                        <BlogCard title="Đi du lịch từ nay không phải rườm rà..." content="Là một iFan chân chính, sử dụng đồng thời cả iPhone, Apple Watch, AirPods thì việc mang theo một mớ cáp sạc khi đi du lịch có thể..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Ftiz%2Ftren-tay-de-sac-magsafe-mophie-3-in1-travel-cover.jpg&w=1080&q=75"/>
-                        <BlogCard title="So Sánh Copilot, Copilot Pro" content="Microsoft đang dốc sức đầu tư vào lĩnh vực trí tuệ nhân tạo (AI), khẳng định đây là hướng đi chiến lược cho tương lai của công ty. Bắt đầu với Copilot ra mắt..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Fthanhhoang%2FPh%C3%A2n%20bi%E1%BB%87t%20Copilot%2Fcropped-images%2Fphan-biet-copilot-copilot-pro-copilot-cover-0-0-0-0-1717061654.jpg&w=1080&q=75"/>
-                        <BlogCard title="Đi du lịch từ nay không phải rườm rà..." content="Là một iFan chân chính, sử dụng đồng thời cả iPhone, Apple Watch, AirPods thì việc mang theo một mớ cáp sạc khi đi du lịch có thể..." image="https://cellphones.com.vn/sforum/_next/image?url=https%3A%2F%2Fcdn-media.sforum.vn%2Fstorage%2Fapp%2Fmedia%2Ftiz%2Ftren-tay-de-sac-magsafe-mophie-3-in1-travel-cover.jpg&w=1080&q=75"/>
+                        {blogs.length > 0 ? blogs.map(blog => (
+                            <BlogCard
+                                key={blog._id}
+                                blog={blog}
+                            />
+                        )) : <p>Loading...</p>}
                     </div>
                 </div>
             </section>

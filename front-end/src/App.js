@@ -13,6 +13,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import BlogList from "./pages/BlogList";
 import Favorite from "./pages/Favorite";
+import DetailBlog from "./pages/DetailBLog";
 function App() {
   return (
     <>
@@ -27,10 +28,11 @@ function App() {
           <Route path="Login"  element={<Login/>}/>
           <Route path="Forgot-password"  element={<ForgotPassword/>}/>
           <Route path="Signup"  element={<SignUp/>}/>
-          <Route path="Detail"  element={<DetailProduct/>}/>
+          <Route path="Products/:id"  element={<DetailProduct/>}/>
           <Route path="Cart"  element={<Cart/>}/>
           <Route path="Checkout"  element={<Checkout/>}/>
           <Route path="favorite" element={<Favorite/>}/>
+          <Route path="blogs/:id" element={<DetailBlog/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
