@@ -7,7 +7,8 @@ const {
     deleteProduct,
     addFavorite,
     rating,
-    uploadImagesProduct
+    uploadImagesProduct,
+    getAllProductTag
 } = require("../controller/ProductController");
 
 const {uploadPhoto, productImgResize} = require("../middlewares/uploadImage");
@@ -18,6 +19,7 @@ router.get("/", getAllProduct);
 router.put("/favorite", addFavorite);
 router.put("/rating", rating);
 router.put("/:id", updateProduct);
+router.get("/tag", getAllProductTag);
 router.get("/:id", findById);
 router.delete("/:id", deleteProduct);
 router.post(

@@ -258,10 +258,7 @@ const Store = () => {
                                             key={product._id}
                                             id={product._id}
                                             grid={grid}
-                                            image={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'}
-                                            brand={product.brand}
-                                            title={product.title}
-                                            price={product.price}
+                                            product={product}
                                             isFavorite={isFavorite(product)}
                                             toggleFavorite={toggleFavorite}
                                         />
