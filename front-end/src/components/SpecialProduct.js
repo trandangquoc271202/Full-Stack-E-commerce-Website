@@ -16,8 +16,10 @@ const SpecialProduct = (props) => {
                 <div className="special-product-card">
                     <div className="d-flex justify-content-between">
                         <div>
+                            <Link to={"/products/"+product._id}>
                             <img src={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'}
                                  className="img-fluid" alt="product"/>
+                            </Link>
                         </div>
                         <div className="special-product-content">
                             <h5 className="brand">{product.brand}</h5>
@@ -47,7 +49,7 @@ const SpecialProduct = (props) => {
                                          aria-valuenow={product.quantity/product.quantity + product.sold *100} aria-valuemin={product.quantity} aria-valuemax={product.quantity + product.sold}></div>
                                 </div>
                             </div>
-                            <Link className="button" to={""}>Chi tiết</Link>
+                            <Link className="button" to={"/products/"+product._id}>Chi tiết</Link>
                         </div>
                     </div>
 

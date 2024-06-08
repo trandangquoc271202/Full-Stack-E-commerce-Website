@@ -27,7 +27,6 @@ const BlogList = () => {
         };
         fetchBlogs();
     }, [page, limit]);
-    console.log(blogs.length)
     return (
         <>
             <Meta title="Tin tức"></Meta>
