@@ -60,7 +60,20 @@ a {
     background-color: var(--color-febd69);
     color: #131921;
 }
-
+.button-pagination{
+    background-color: var(--color-232f3e);
+    color: white;
+    font-size: 14px;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+.button-pagination:disabled{
+    background-color: #e16d56;
+    color: white;
+    font-size: 14px;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
 .section-heading {
     font-size: 26px;
     line-height: 32px;
