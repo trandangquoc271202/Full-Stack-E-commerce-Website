@@ -26,6 +26,7 @@ const Store = () => {
             });
     };
     const toggleFavorite = (productId) => {
+        if (!isLogin) return;
         axios.put(`${API_URL}/api/product/favorite`, {prodId: productId })
             .then(response => {
                 // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
@@ -54,6 +55,7 @@ const Store = () => {
         };
 
         fetchProducts();
+
         if(isLogin){
             fetchFavorites();
         }
