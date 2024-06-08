@@ -4,7 +4,6 @@ import BreadCrumb from "../components/BreadCrumb";
 import BlogCard from "../components/BlogCard";
 import axios from "axios";
 import API_URL from "../env/Constants";
-import ProductCard from "../components/ProductCard";
 
 const BlogList = () => {
     const [grid, setGrid] = useState(6);

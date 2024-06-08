@@ -10,8 +10,8 @@ const BlogCard = (props) => {
                 <img src={blog.images.length > 0 ? blog.images[0].url : 'images/default-product.jpg'}
                      className="img-fluid" alt="product"/>
                 <div className="card-body">
-                    <h5 className="card-title">{blog.title}</h5>
-                    <p className="card-text">{blog.description}</p>
+                    <h5 className="card-title">{blog.title.slice(0, 40)}...</h5>
+                    <p className="card-text">{blog.description.slice(0, 200)}...</p>
                     <Link to="" className="button">Xem thêm</Link>
                 </div>
             </div>
