@@ -7,30 +7,7 @@ import axios from "axios";
 import API_URL from "../env/Constants";
 
 const Store = () => {
-    // const [grid, setGrid] = useState(3);
-    // const [products, setProducts] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
-    // useEffect(() => {
-    //     axios.get('http://localhost:5000/api/product')
-    //         .then(response => {
-    //             setProducts(response.data);
-    //             setLoading(false);
-    //         })
-    //         .catch(error => {
-    //             setError(error.message);
-    //             setLoading(false);
-    //         });
-    // }, []);
-    //
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
-    //
-    // if (error) {
-    //     return <div>Error: {error}</div>;
-    // }
+    const [isLogin, setIsLogin] = useState(true);
     const [grid, setGrid] = useState(3);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -38,6 +15,26 @@ const Store = () => {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(12);
 
+    const [productFavorite, setProductFavorite] = useState([]);
+    const fetchFavorites = () => {
+        axios.get(`${API_URL}/api/user/favorite`)
+            .then(response => {
+                setProductFavorite(response.data);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+    const toggleFavorite = (productId) => {
+        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId })
+            .then(response => {
+                // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
+                fetchFavorites()
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -57,10 +54,20 @@ const Store = () => {
         };
 
         fetchProducts();
+        if(isLogin){
+            fetchFavorites();
+        }
     }, [page, limit]);
+    const isFavorite = (product) => {
+      for(let i =0;i< productFavorite.length; i++){
+          if(product._id === productFavorite[i]._id) return true;
+      }
+      return false;
+    };
     if (error) {
         return <div>Error: {error}</div>;
     }
+
     return (
         <>
             <Meta title="Sản phẩm"></Meta>
@@ -249,11 +256,14 @@ const Store = () => {
                                     {products.length > 0 ? products.map(product => (
                                         <ProductCard
                                             key={product._id}
+                                            id={product._id}
                                             grid={grid}
                                             image={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'}
                                             brand={product.brand}
                                             title={product.title}
                                             price={product.price}
+                                            isFavorite={isFavorite(product)}
+                                            toggleFavorite={toggleFavorite}
                                         />
                                     )) : <p>Loading...</p>}
                                 </div>

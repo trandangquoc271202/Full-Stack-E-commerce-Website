@@ -4,30 +4,25 @@ import ReactStars from "react-rating-stars-component";
 import {MdFavorite} from "react-icons/md";
 
 const ProductCard = (props) => {
-    const {grid} = props;
+    const {grid, toggleFavorite} = props;
     // let location = useLocation();
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
     });
     return (
-        // <div className={`${location.pathname == "/store" ? `gr-${grid}` : "gr-3"}`}>
-            <div className={`${grid != null ? `gr-${grid}` : "gr-3"}`}>
-            {/*</div>*/}
+        <div className={`${grid != null ? `gr-${grid}` : "gr-3"}`}>
             <div className="product-card position-relative">
-                <div className="wishlist-icon position-absolute">
-                    <Link to="">
-                        <img src="images/wish.svg" alt="wishlist"/>
-                        {/*<MdFavorite style={{ "color" : "red"}}/>*/}
-                    </Link>
+                <div className="wishlist-icon position-absolute" onClick={() => toggleFavorite(props.id)}>
+                    {props.isFavorite ? <MdFavorite style={{"color": "red"}}/> : <img src="images/wish.svg" alt="wishlist"/>}
                 </div>
                 <div className="product-image">
                     <Link to="/detail">
-                    <img src={props.image} className="img-fluid" alt="product"/>
+                        <img src={props.image} className="img-fluid" alt="product"/>
                     </Link>
                 </div>
                 <div className="product-details">
-                <h6 className="brand">{props.brand}</h6>
+                    <h6 className="brand">{props.brand}</h6>
                     <h5 className="product-title">{props.title}</h5>
                     <ReactStars
                         count={5}
