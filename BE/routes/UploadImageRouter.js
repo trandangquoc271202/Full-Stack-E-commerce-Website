@@ -9,6 +9,6 @@ router.post(
     productImgResize,
     uploadImages
 );
-router.delete("/delete-img/:id", deleteImages);
+// router.delete("/delete-img/:id", deleteImages);
 module.exports = router;
 

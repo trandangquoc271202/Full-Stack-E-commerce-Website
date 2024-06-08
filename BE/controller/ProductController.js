@@ -110,16 +110,16 @@ const findById = asyncHandler(async (req, res) => {
 
 const addFavorite = asyncHandler(async (req, res) => {
     // const { _id } = req.user;
-    const  _id  = "6662894c0178b420fe98e9bd";
-    const { prodId } = req.body;
+    const _id = "6662894c0178b420fe98e9bd";
+    const {prodId} = req.body;
     try {
         const user = await User.findById(_id);
-        const alreadyadded = user.wishlist.find((id) => id.toString() === prodId);
+        const alreadyadded = user.favorite.find((id) => id.toString() === prodId);
         if (alreadyadded) {
             let user = await User.findByIdAndUpdate(
                 _id,
                 {
-                    $pull: { wishlist: prodId },
+                    $pull: {favorite: prodId},
                 },
                 {
                     new: true,
@@ -130,7 +130,7 @@ const addFavorite = asyncHandler(async (req, res) => {
             let user = await User.findByIdAndUpdate(
                 _id,
                 {
-                    $push: { wishlist: prodId },
+                    $push: {favorite: prodId},
                 },
                 {
                     new: true,
@@ -145,8 +145,8 @@ const addFavorite = asyncHandler(async (req, res) => {
 
 const rating = asyncHandler(async (req, res) => {
     // const { _id } = req.user;
-    const  _id  = "6662894c0178b420fe98e9bd";
-    const { star, prodId, comment } = req.body;
+    const _id = "6662894c0178b420fe98e9bd";
+    const {star, prodId, comment} = req.body;
     try {
         const product = await Product.findById(prodId);
         let alreadyRated = product.ratings.find(
@@ -155,10 +155,10 @@ const rating = asyncHandler(async (req, res) => {
         if (alreadyRated) {
             const updateRating = await Product.updateOne(
                 {
-                    ratings: { $elemMatch: alreadyRated },
+                    ratings: {$elemMatch: alreadyRated},
                 },
                 {
-                    $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+                    $set: {"ratings.$.star": star, "ratings.$.comment": comment},
                 },
                 {
                     new: true,
@@ -192,7 +192,7 @@ const rating = asyncHandler(async (req, res) => {
             {
                 totalrating: actualRating,
             },
-            { new: true }
+            {new: true}
         );
         res.json(finalproduct);
     } catch (error) {
@@ -207,11 +207,10 @@ const uploadImagesProduct = asyncHandler(async (req, res) => {
         const urls = [];
         const files = req.files;
         for (const file of files) {
-            const { path } = file;
+            const {path} = file;
             const newpath = await uploader(path);
-            // console.log(newpath);
             urls.push(newpath);
-            fs.unlinkSync(path);
+            // fs.unlinkSync(path);
         }
         const images = urls.map((file) => {
             return file;
@@ -219,12 +218,158 @@ const uploadImagesProduct = asyncHandler(async (req, res) => {
 
         const updatedProduct = await Product.findByIdAndUpdate(
             id,
-            { $push: { images: { $each: images } } },
-            { new: true }
+            {$push: {images: {$each: images}}},
+            {new: true}
         );
         res.json(images);
     } catch (error) {
         throw new Error(error);
+    }
+});
+const getAllProductSpecial = asyncHandler(async (req, res) => {
+    try {
+        // Filtering
+        const queryObj = {...req.query};
+        const excludeFields = ["page", "sort", "limit", "fields"];
+        excludeFields.forEach((el) => delete queryObj[el]);
+
+        // Add the condition to filter by special tag
+        queryObj.tags = {$in: ["special"]};
+
+        let queryStr = JSON.stringify(queryObj);
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+        let query = Product.find(JSON.parse(queryStr));
+
+        // Sorting
+        if (req.query.sort) {
+            const sortBy = req.query.sort.split(",").join(" ");
+            query = query.sort(sortBy);
+        } else {
+            query = query.sort("-createdAt");
+        }
+
+        // Limiting the fields
+        if (req.query.fields) {
+            const fields = req.query.fields.split(",").join(" ");
+            query = query.select(fields);
+        } else {
+            query = query.select("-__v");
+        }
+
+        // Pagination
+        const page = req.query.page * 1 || 1;
+        const limit = req.query.limit * 1 || 10;
+        const skip = (page - 1) * limit;
+        query = query.skip(skip).limit(limit);
+
+        if (req.query.page) {
+            const productCount = await Product.countDocuments();
+            if (skip >= productCount) throw new Error("This Page does not exist");
+        }
+
+        const product = await query;
+        res.json(product);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+});
+// const getAllProductSpecial = asyncHandler(async (req, res) => {
+//     try {
+//         // Filtering
+//         const queryObj = { ...req.query };
+//         const excludeFields = ["page", "sort", "limit", "fields"];
+//         excludeFields.forEach((el) => delete queryObj[el]);
+//
+//         // Add the condition to filter by special tag
+//         queryObj.tags = { $in: ["special"] };
+//
+//         let queryStr = JSON.stringify(queryObj);
+//         queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+//
+//         let query = Product.find(JSON.parse(queryStr));
+//
+//         // Sorting
+//         if (req.query.sort) {
+//             const sortBy = req.query.sort.split(",").join(" ");
+//             query = query.sort(sortBy);
+//         } else {
+//             query = query.sort("-createdAt");
+//         }
+//
+//         // Limiting the fields
+//         if (req.query.fields) {
+//             const fields = req.query.fields.split(",").join(" ");
+//             query = query.select(fields);
+//         } else {
+//             query = query.select("-__v");
+//         }
+//
+//         // Pagination
+//         const page = req.query.page * 1 || 1;
+//         const limit = req.query.limit * 1 || 10;
+//         const skip = (page - 1) * limit;
+//         query = query.skip(skip).limit(limit);
+//
+//         if (req.query.page) {
+//             const productCount = await Product.countDocuments();
+//             if (skip >= productCount) throw new Error("This Page does not exist");
+//         }
+//
+//         const product = await query;
+//         res.json(product);
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+const getAllProductTag = asyncHandler(async (req, res) => {
+    try {
+        // Filtering
+        const queryObj = {...req.query};
+        const excludeFields = ["page", "sort", "limit", "fields", "tag"];
+        excludeFields.forEach((el) => delete queryObj[el]);
+
+        // Add the condition to filter by tag if provided
+        if (req.query.tag) {
+            queryObj.tags = {$in: [req.query.tag]};
+        }
+
+        let queryStr = JSON.stringify(queryObj);
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+        let query = Product.find(JSON.parse(queryStr));
+
+        // Sorting
+        if (req.query.sort) {
+            const sortBy = req.query.sort.split(",").join(" ");
+            query = query.sort(sortBy);
+        } else {
+            query = query.sort("-createdAt");
+        }
+
+        // Limiting the fields
+        if (req.query.fields) {
+            const fields = req.query.fields.split(",").join(" ");
+            query = query.select(fields);
+        } else {
+            query = query.select("-__v");
+        }
+
+        // Pagination
+        const page = req.query.page * 1 || 1;
+        const limit = req.query.limit * 1 || 10;
+        const skip = (page - 1) * limit;
+        query = query.skip(skip).limit(limit);
+
+        if (req.query.page) {
+            const productCount = await Product.countDocuments();
+            if (skip >= productCount) throw new Error("This Page does not exist");
+        }
+
+        const product = await query;
+        res.json(product);
+    } catch (error) {
+        res.status(400).json({message: error.message});
     }
 });
 
@@ -236,5 +381,6 @@ module.exports = {
     deleteProduct,
     addFavorite,
     rating,
-    uploadImagesProduct
+    uploadImagesProduct,
+    getAllProductTag
 };
