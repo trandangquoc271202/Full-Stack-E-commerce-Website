@@ -1,11 +1,73 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
+import axios from "axios";
+import API_URL from "../env/Constants";
 
 const Store = () => {
+    const [isLogin, setIsLogin] = useState(true);
     const [grid, setGrid] = useState(3);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(12);
+
+    const [productFavorite, setProductFavorite] = useState([]);
+    const fetchFavorites = () => {
+        axios.get(`${API_URL}/api/user/favorite`)
+            .then(response => {
+                setProductFavorite(response.data);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+    const toggleFavorite = (productId) => {
+        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId })
+            .then(response => {
+                // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
+                fetchFavorites()
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(`${API_URL}/api/product`, {
+                    params: {
+                        page,
+                        limit
+                    }
+                });
+                setProducts(response.data);
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+        if(isLogin){
+            fetchFavorites();
+        }
+    }, [page, limit]);
+    const isFavorite = (product) => {
+      for(let i =0;i< productFavorite.length; i++){
+          if(product._id === productFavorite[i]._id) return true;
+      }
+      return false;
+    };
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     return (
         <>
             <Meta title="Sản phẩm"></Meta>
@@ -154,8 +216,23 @@ const Store = () => {
                                             <option value="">Giá từ cao đến thấp</option>
                                         </select>
                                     </div>
+                                    <div className="pagination align-items-center">
+                                        <button className="button-pagination btn-primary border-0 m-lg-3" onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}
+                                                disabled={page === 1}>Trước
+                                        </button>
+                                        <span>Trang {page}</span>
+                                        <button className="button-pagination btn-primary border-0 m-lg-3" onClick={() => setPage(prevPage => prevPage + 1)}
+                                                disabled={products.length < limit}>Sau
+                                        </button>
+                                        <select className="form-control form-select" style={{width: "70px"}} onChange={(e) => setLimit(e.target.value)} value={limit}>
+                                            <option value={4}>4</option>
+                                            <option value={8}>8</option>
+                                            <option defaultValue={12}>12</option>
+                                            <option value={16}>16</option>
+                                        </select>
+                                    </div>
                                     <div className="d-flex align-items-center gap-10">
-                                        <p className="totalproducts mb-0">21 sản phẩm</p>
+                                        <p className="totalproducts mb-0">{products.length} sản phẩm</p>
                                         <div className="d-flex gap-10 align-items-center grid">
                                             <img onClick={() => {
                                                 setGrid(3)
@@ -171,35 +248,34 @@ const Store = () => {
                                             }} className="d-block img-fluid" src="images/gr.svg" alt="grid"/>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div className="product-list pb-5">
                                 <div className="d-flex gap-10 flex-wrap">
-                                    <ProductCard grid={grid} image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
-                                                 price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-pova-5_2_.png" brand="TECNO" title="TECNO POVA"
-                                                 price="4.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-spark-20-pro-plus_1__2.png" brand="TECNO" title="TECNO SPARK"
-                                                 price="5.050.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_m3_slot.png" brand="APPLE" title="Air M3"
-                                                 price="27.190.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/l/o/loa-bluetooth-alpha-works-aw-w88_2__1.png" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/l/o/loa-bluetooth-sony-srs-xb100-spa-0.png" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14-pro_2__5.png" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/_/t_i_xu_ng_22__6.png" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/ipad-10-9-inch-2022.png" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/ipad-air-5.png" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/a/tai-nghe-khong-day-huawei-freeclip-0.png" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="22.000.000 VNĐ"/>
-                                    <ProductCard grid={grid} image="images/watch.jpg" brand="G-SHOCK"
-                                                 title="GMW-B5000D-2" price="2.000.000 VNĐ"/>
+                                    {products.length > 0 ? products.map(product => (
+                                        <ProductCard
+                                            key={product._id}
+                                            id={product._id}
+                                            grid={grid}
+                                            image={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'}
+                                            brand={product.brand}
+                                            title={product.title}
+                                            price={product.price}
+                                            isFavorite={isFavorite(product)}
+                                            toggleFavorite={toggleFavorite}
+                                        />
+                                    )) : <p>Loading...</p>}
                                 </div>
+                            </div>
+                            <div className="pagination align-items-center justify-content-center">
+                                <button className="button-pagination btn-primary border-0 m-lg-3" onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}
+                                        disabled={page === 1}>Trước
+                                </button>
+                                <span>Trang {page}</span>
+                                <button className="button-pagination btn-primary border-0 m-lg-3" onClick={() => setPage(prevPage => prevPage + 1)}
+                                        disabled={products.length < limit}>Sau
+                                </button>
                             </div>
                         </div>
 
