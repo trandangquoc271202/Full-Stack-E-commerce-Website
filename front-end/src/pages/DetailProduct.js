@@ -198,7 +198,7 @@ const DetailProduct = () => {
                                             </div>
                                             <p className="mt-3">{rating.comment}</p>
                                         </div>
-                                    )) : <p>Loading...</p>}
+                                    )) : <p>Chưa có đánh giá</p>}
                                 </div>
                             </div>
                         </div>

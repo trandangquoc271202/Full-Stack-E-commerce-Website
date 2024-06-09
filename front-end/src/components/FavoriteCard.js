@@ -18,7 +18,7 @@ const FavoriteCard = (props) => {
                     </div>
                 </div>
                 <div className="product-image">
-                    <Link to="/detail">
+                    <Link to={"/products/"+product._id}>
                         <img src={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'} className="img-fluid" alt="product"/>
                     </Link>
                 </div>
