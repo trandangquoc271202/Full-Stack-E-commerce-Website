@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-
+import API_URL from "../env/Constants";
 const Contact = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -22,7 +22,7 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:5000/api/contact", formData);
+            const response = await axios.post(API_URL+"/api/contact", formData);
             if(response.status === 200) {
                 alert("Liên hệ của bạn đã được gửi thành công!");
                 setFormData({

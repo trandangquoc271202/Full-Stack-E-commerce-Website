@@ -174,7 +174,7 @@ const Store = () => {
                                 <div>
                                     <div className="random-products mb-3 d-flex">
                                         <div className="w-50">
-                                            <img src="images/watch.jpg" className="img-fluid" alt="watch"/>
+                                            <img src="/images/watch.jpg" className="img-fluid" alt="watch"/>
                                         </div>
                                         <div className="w-50">
                                             <h5>GMW-B5000D-2</h5>
@@ -238,16 +238,16 @@ const Store = () => {
                                         <div className="d-flex gap-10 align-items-center grid">
                                             <img onClick={() => {
                                                 setGrid(3)
-                                            }} className="d-block img-fluid" src="images/gr4.svg" alt="grid"/>
+                                            }} className="d-block img-fluid" src="/images/gr4.svg" alt="grid"/>
                                             <img onClick={() => {
                                                 setGrid(4)
-                                            }} className="d-block img-fluid" src="images/gr3.svg" alt="grid"/>
+                                            }} className="d-block img-fluid" src="/images/gr3.svg" alt="grid"/>
                                             <img onClick={() => {
                                                 setGrid(6)
-                                            }} className="d-block img-fluid" src="images/gr2.svg" alt="grid"/>
+                                            }} className="d-block img-fluid" src="/images/gr2.svg" alt="grid"/>
                                             <img onClick={() => {
                                                 setGrid(12)
-                                            }} className="d-block img-fluid" src="images/gr.svg" alt="grid"/>
+                                            }} className="d-block img-fluid" src="/images/gr.svg" alt="grid"/>
                                         </div>
                                     </div>
 

@@ -5,15 +5,58 @@ import ReactImageZoom from '../model/ReactImageZoom';
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Color from "../components/Color";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import API_URL from "../env/Constants";
+import color from "../components/Color";
 
 const DetailProduct = () => {
+    const [isLogin, setIsLogin] = useState(true);
     const [orderProduct, setOrderProduct] = useState(true);
     const {id} = useParams();
     const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
+    const [selectedColor, setSelectedColor] = useState("");
+    const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
+    const handleChangeColor = (e) => {
+        setSelectedColor(e.target.value);
+    };
+
+    const handleChangeQuantity = (e) => {
+        setQuantity(e.target.value);
+    };
+
+    const handleAddToCart = async () => {
+        if(!isLogin){
+            navigate("/login");
+            return;
+        }
+        const cartItem = {
+            _id: product._id,
+            count: quantity,
+            color: selectedColor,
+        };
+        if (selectedColor === "") {
+            alert("Vui lòng chọn màu sắc");
+        }else{
+            if (quantity == null || quantity < 1) {
+                alert("Vui lòng chọn lại số lượng");
+            }else{
+                try {
+                    const response = await axios.post(`${API_URL}/api/user/cart`, cartItem);
+                    if (response.status === 200) {
+                        alert("Sản phẩm đã thêm thành công");
+                    } else {
+                        alert("Đã xảy ra lỗi, vui lòng thử lại sau.");
+                    }
+                } catch (error) {
+                    console.error('Lỗi khi thêm sản phẩm vào giỏ hàng:', error);
+                }
+            }
+        }
+    };
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -33,6 +76,7 @@ const DetailProduct = () => {
     if (!product) {
         return <div>Loading...</div>;
     }
+
     return (
         <>
             <Meta title="Chi tiết sản phẩm"></Meta>
@@ -49,7 +93,7 @@ const DetailProduct = () => {
                                 </div>
                             </div>
                             <div className="other-product-images d-flex flex-wrap gap-15">
-                            <div><img src="images/product1.png" alt="" className=""/></div>
+                                <div><img src="images/product1.png" alt="" className=""/></div>
                                 <div><img src="images/product1.png" alt="" className=""/></div>
                                 <div><img src="images/product1.png" alt="" className=""/></div>
                                 <div><img src="images/product1.png" alt="" className=""/></div>
@@ -91,32 +135,33 @@ const DetailProduct = () => {
                                         <h3 className="product-heading">Có sẵn: </h3>
                                         <p className="product-data">{product.quantity}</p>
                                     </div>
-                                    {/*<div className="d-flex gap-10 flex-column mt-2 mb-3">*/}
-                                    {/*    <h3 className="product-heading">Size: </h3>*/}
-                                    {/*    <div className="d-flex flex-wrap gap-15">*/}
-                                    {/*        <span*/}
-                                    {/*            className="badge border-1 bg-white text-dark border-secondary border">S</span>*/}
-                                    {/*        <span*/}
-                                    {/*            className="badge border-1 bg-white text-dark border-secondary border">M</span>*/}
-                                    {/*        <span*/}
-                                    {/*            className="badge border-1 bg-white text-dark border-secondary border">L</span>*/}
-                                    {/*        <span*/}
-                                    {/*            className="badge border-1 bg-white text-dark border-secondary border">XL</span>*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="d-flex gap-10 flex-column mt-2 mb-3">*/}
-                                    {/*    <h3 className="product-heading">Màu sắc: </h3>*/}
-                                    {/*    <Color/>*/}
-                                    {/*</div>*/}
+                                    <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                                        <h3 className="product-heading">Size: </h3>
+                                        <div className="d-flex flex-wrap gap-15">
+                                            {product.color.length > 0 ? product.color.map(color => (
+                                                <div className="d-flex justify-content-center">
+                                                    <input type="radio" id="red" name="color" value={color.name}
+                                                           checked={selectedColor === `${color.name}`}
+                                                           onChange={handleChangeColor} style={{"width": "20px"}}/>
+                                                    <span
+                                                        className="badge border-1 bg-white text-dark border-secondary border">{color.name}</span>
+                                                </div>
+                                            )) : ""}
+                                        </div>
+                                        <div>
+                                            <p>Bạn đã chọn màu: {selectedColor}</p>
+                                        </div>
+                                    </div>
                                     <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
                                         <h3 className="product-heading">Số lượng: </h3>
                                         <div className="">
-                                            <input className="form-control" type="number" min={1} max={10}
-                                                   required={true} defaultValue={1} name="" id=""
+                                            <input className="form-control" type="number" min={1} max={product.quantity}
+                                                   required={true} value={quantity} onChange={handleChangeQuantity}
                                                    style={{width: "70px"}}/>
                                         </div>
                                         <div className="d-flex align-items-center gap-30">
-                                            <button className="button btn btn-primary border-0">Thêm vào giỏ hàng
+                                            <button className="button btn btn-primary border-0"
+                                                    onClick={handleAddToCart}>Thêm vào giỏ hàng
                                             </button>
                                             <button className="button border-0 signup">Mua ngay</button>
                                         </div>
