@@ -10,6 +10,7 @@ const productRouter = require("./routes/ProductRouter");
 const authRouter = require("./routes/AuthRouter");
 const blogRouter = require("./routes/BlogRouter");
 const uploadRouter = require("./routes/UploadImageRouter");
+const contactRouter = require("./routes/ContactRouter");
 const cors = require("cors");
 const app = express();
 dbConnect();
@@ -20,6 +21,7 @@ app.use("/api/user", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/api/blog", blogRouter);
+app.use("/api/contact", contactRouter);
 app.use(notFound);
 app.use(errorHandler);
 app.listen(PORT, () => {

@@ -24,7 +24,7 @@ const Header = () => {
                 <div className="row align-items-center">
                     <div className="col-2">
                         <h1 className="mb-0">
-                            <Link to="/" className="text-white">DigitalShop</Link>
+                            <Link to="/" className="text-white">Digital</Link>
                         </h1>
                     </div>
                     <div className="col-5">
@@ -40,7 +40,7 @@ const Header = () => {
                         <div className="header-upper-links d-flex align-items-center justify-content-between">
                             <div>
                                 <Link className="d-flex align-items-center gap-10 text-white">
-                                    <img src="images/compare.svg" alt="compare"/>
+                                    <img src="/images/compare.svg" alt="compare"/>
                                     <p className="mb-0">
                                         So sánh<br/>sản phẩm
                                     </p>
@@ -48,7 +48,7 @@ const Header = () => {
                             </div>
                             <div>
                                 <Link to={"/favorite"} className="d-flex align-items-center gap-10 text-white">
-                                    <img src="images/wishlist.svg" alt="wishlist"/>
+                                    <img src="/images/wishlist.svg" alt="wishlist"/>
                                     <p className="mb-0">
                                         Sản phẩm<br/>yêu thích
                                     </p>
@@ -56,7 +56,7 @@ const Header = () => {
                             </div>
                             <div>
                                 <Link to="/Login" className="d-flex align-items-center gap-10 text-white">
-                                    <img src="images/user.svg" alt="user"/>
+                                    <img src="/images/user.svg" alt="user"/>
                                     <p className="mb-0">
                                         Đăng nhập
                                     </p>
@@ -64,7 +64,7 @@ const Header = () => {
                             </div>
                             <div>
                                 <Link className="d-flex align-items-center gap-10 text-white" to={"/cart"}>
-                                    <img src="images/cart.svg" alt="cart"/>
+                                    <img src="/images/cart.svg" alt="cart"/>
                                     <div className="d-flex flex-column gap-10">
                                         <span className="badge bg-white text-dark">2</span>
                                         <p className="mb-0"></p>
@@ -87,7 +87,7 @@ const Header = () => {
                                         className="btn btn-secondary dropdown-toggle bg-transparent border-0 gap-15 d-flex align-items-center"
                                         type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="images/menu.svg" alt=""/>
+                                        <img src="/images/menu.svg" alt=""/>
                                         <span className="me-5 d-inline-block"> Danh mục</span>
                                     </button>
                                     <ul className="dropdown-menu">
@@ -103,7 +103,7 @@ const Header = () => {
                             <div className="menu-links">
                                 <div className="align-items-center d-flex gap-15">
                                     <NavLink className="nav-item" to="/">Trang chủ</NavLink>
-                                    <NavLink className="nav-item" to="/store">Sản phẩm</NavLink>
+                                    <NavLink className="nav-item" to="/products">Sản phẩm</NavLink>
                                     <NavLink className="nav-item" to="/blogs">Tin tức</NavLink>
                                     <NavLink className="nav-item" to="/contact">Liên hệ</NavLink>
                                 </div>
