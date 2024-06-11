@@ -44,7 +44,11 @@ var productSchema = new mongoose.Schema(
                 asset_id: String,
             },
         ],
-        color: [],
+        color: [
+            {
+                name: String
+            }
+        ],
         tags: String,
         ratings: [
             {

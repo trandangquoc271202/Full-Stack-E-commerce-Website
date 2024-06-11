@@ -8,7 +8,8 @@ const {
     addFavorite,
     rating,
     uploadImagesProduct,
-    getAllProductTag
+    getAllProductTag,
+    addColorToProduct
 } = require("../controller/ProductController");
 
 const {uploadPhoto, productImgResize} = require("../middlewares/uploadImage");
@@ -28,4 +29,5 @@ router.post(
     productImgResize,
     uploadImagesProduct
 );
+router.put("/color/:id", addColorToProduct);
 module.exports = router;

@@ -324,7 +324,32 @@ const getAllProductTag = asyncHandler(async (req, res) => {
         res.status(400).json({message: error.message});
     }
 });
+const addColorToProduct = asyncHandler(async (req, res) => {
+    const {id} = req.params;
+    const color = req.body;
+    try {
+        const product = await Product.findById(id);
 
+        if (!product) {
+            res.status(404).json({ message: "Không tìm thấy sản phẩm" });
+            return;
+        }
+
+        const colorExists = product.color.some((c) => c.name.toLowerCase() === color.name.toLowerCase());
+
+        if (colorExists) {
+            res.status(400).json({ message: "Màu sắc đã tồn tại" });
+            return;
+        }
+
+        product.color.push({ name: color.name });
+        const updatedProduct = await product.save();
+
+        res.json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 module.exports = {
     createProduct,
     getAllProduct,
@@ -334,5 +359,6 @@ module.exports = {
     addFavorite,
     rating,
     uploadImagesProduct,
-    getAllProductTag
+    getAllProductTag,
+    addColorToProduct
 };

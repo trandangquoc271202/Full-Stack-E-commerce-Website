@@ -10,11 +10,11 @@ var ContactSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    mobilePhone: {
+    phoneNumber: {
         type: String,
         required: true,
     },
-    content: {
+    message: {
         type: String,
         required: true,
     },
