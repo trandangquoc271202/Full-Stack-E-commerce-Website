@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import {MdDeleteOutline} from "react-icons/md";
-import {Link} from "react-router-dom";
+import { MdDeleteOutline } from "react-icons/md";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import API_URL from "../env/Constants";
 
@@ -39,12 +39,36 @@ const Cart = () => {
         }
     };
 
+    const handleQuantityChange = async (productId, newCount, max) => {
+        if(newCount<=0){
+            newCount = 1;
+        }
+        if(newCount > max){
+            newCount = max;
+        }
+        try {
+            await axios.put(`${API_URL}/api/user/cart`, {
+                idProductInCart: productId,
+                newCount: newCount
+            });
+            fetchProducts(); // Refresh the cart after update
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+    const handleQuantity = async (newCount, max) => {
+        if(newCount<=0){
+            return 1;
+        }
+        if(newCount > max){
+            return max;
+        }
+    };
     const products = cart.products || [];
 
     const getImages = (product) => {
         return product.product.images.length > 0 ? product.product.images[0].url : 'images/default-product.jpg';
     };
-
     return (
         <>
             <Meta title="Giỏ hàng"></Meta>
@@ -76,14 +100,13 @@ const Cart = () => {
                                         <h5 className="price">{formatter.format(product.price)}</h5>
                                     </div>
                                     <div className="cart-col-3 d-flex align-items-center gap-15">
-                                        <div>
-                                            <input className="form-control" type="number" min={1} max={product.product.quantity}
-                                                   defaultValue={product.count}
-                                                   name="" id="" />
-                                        </div>
-                                        <div>
-                                            <MdDeleteOutline className="text-danger delete" onClick={() => handleDelete(product._id)} />
-                                        </div>
+
+                                        <input className="form-control w-50" type="number" min={1} max={product.product.quantity}
+                                               value={product.count}
+                                               onChange={(e) => handleQuantityChange(product._id, Number(e.target.value), product.product.quantity)}
+                                               name="" id="" />
+
+                                        <MdDeleteOutline className="text-danger delete" onClick={() => handleDelete(product._id)} />
                                     </div>
                                     <div className="cart-col-4">
                                         <h5 className="price">{formatter.format(product.price * product.count)}</h5>
