@@ -5,7 +5,7 @@ const {
     userCart,
     getUserCart,
     deleteProductFromCart,
-    updateProductQuantityInCart
+    updateQuantityCart
 } = require("../controller/UserController");
 const router = express.Router();
 router.post("/register", createUser);
@@ -13,5 +13,5 @@ router.get("/favorite", getFavorite);
 router.post("/cart", userCart);
 router.get("/cart", getUserCart);
 router.delete('/cart/:id', deleteProductFromCart);
-router.put('/cart/:id', updateProductQuantityInCart);
+router.put('/cart', updateQuantityCart);
 module.exports = router;
