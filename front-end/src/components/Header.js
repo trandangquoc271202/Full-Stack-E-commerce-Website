@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {NavLink, Link} from "react-router-dom"
 import {BsSearch} from "react-icons/bs";
+import axios from "axios";
+import API_URL from "../env/Constants";
 
 const Header = () => {
     return <>
@@ -66,7 +68,7 @@ const Header = () => {
                                 <Link className="d-flex align-items-center gap-10 text-white" to={"/cart"}>
                                     <img src="/images/cart.svg" alt="cart"/>
                                     <div className="d-flex flex-column gap-10">
-                                        <span className="badge bg-white text-dark">2</span>
+                                        <span className="badge bg-white text-dark"></span>
                                         <p className="mb-0"></p>
                                     </div>
                                 </Link>
