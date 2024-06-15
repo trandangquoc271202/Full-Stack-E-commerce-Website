@@ -19,16 +19,17 @@ const router = express.Router();
 router.post("/", createProduct);
 router.get("/", getAllProduct);
 router.put("/favorite",authMiddleware, addFavorite);
-router.put("/rating", rating);
-router.put("/:id", updateProduct);
+router.put("/rating",authMiddleware, rating);
+router.put("/:id",authMiddleware,isAdmin, updateProduct);
 router.get("/tag", getAllProductTag);
 router.get("/:id", findById);
-router.delete("/:id", deleteProduct);
+router.delete("/:id",authMiddleware, isAdmin, deleteProduct);
 router.post(
     "/upload/:id",
+    authMiddleware, isAdmin,
     uploadPhoto.array("images", 10),
     productImgResize,
     uploadImagesProduct
 );
-router.put("/color/:id", addColorToProduct);
+router.put("/color/:id",authMiddleware, isAdmin, addColorToProduct);
 module.exports = router;

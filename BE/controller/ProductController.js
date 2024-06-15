@@ -101,6 +101,7 @@ const findById = asyncHandler(async (req, res) => {
     validationMongoId(id);
     try {
         const product = await Product.findById({_id: id});
+        product.ratings = product.ratings.reverse();
         res.json(product);
     } catch (error) {
         console.error('Error:', error);
@@ -144,8 +145,8 @@ const addFavorite = asyncHandler(async (req, res) => {
 });
 
 const rating = asyncHandler(async (req, res) => {
-    // const { _id } = req.user;
-    const _id = "6662894c0178b420fe98e9bd";
+    const { _id } = req.user;
+    // const _id = "6662894c0178b420fe98e9bd";
     const {star, prodId, comment} = req.body;
     try {
         const product = await Product.findById(prodId);
@@ -194,7 +195,7 @@ const rating = asyncHandler(async (req, res) => {
             },
             {new: true}
         );
-        res.json(finalproduct);
+        res.json(finalproduct.ratings.reverse());
     } catch (error) {
         throw new Error(error);
     }
