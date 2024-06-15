@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 const Layout = ({isLoggedIn, handleLogout}) => {
     return <>
-        <Header/>
+        <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Outlet/>
         <Footer/>
     </>
