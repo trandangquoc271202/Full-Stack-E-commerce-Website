@@ -19,6 +19,10 @@ const DetailProduct = () => {
     const [selectedColor, setSelectedColor] = useState("");
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
     const handleChangeColor = (e) => {
         setSelectedColor(e.target.value);
     };
@@ -113,7 +117,7 @@ const DetailProduct = () => {
                                     </h3>
                                 </div>
                                 <div className="border-bottom py-3">
-                                    <p className="price">20.000.000 VNĐ</p>
+                                    <p className="price">{formatter.format(product.price)}</p>
                                     <div className="d-flex align-items-center gap-10">
                                         <ReactStars
                                             count={5}
@@ -169,7 +173,7 @@ const DetailProduct = () => {
                                             <button className="button btn btn-primary border-0"
                                                     onClick={handleAddToCart}>Thêm vào giỏ hàng
                                             </button>
-                                            <button className="button border-0 signup">Mua ngay</button>
+                                            {/*<button className="button border-0 signup">Mua ngay</button>*/}
                                         </div>
                                     </div>
                                 </div>
