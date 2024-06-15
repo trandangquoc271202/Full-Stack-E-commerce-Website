@@ -91,7 +91,8 @@ const likeBlog = asyncHandler(async (req, res) => {
     validationMongoId(blogId);
     const blog = await Blog.findById(blogId);
     // const loginUserId = req?.user?._id;
-    const loginUserId = "6662894c0178b420fe98e9bd";
+    // const loginUserId = "6662894c0178b420fe98e9bd";
+    const loginUserId = req?.user?._id;
     const isLiked = blog?.isLiked;
     const alreadyDisliked = blog?.dislikes?.find(
         (userId) => userId?.toString() === loginUserId?.toString()
@@ -133,8 +134,8 @@ const dislikeBlog = asyncHandler(async (req, res) => {
     const {blogId} = req.body;
     validationMongoId(blogId);
     const blog = await Blog.findById(blogId);
-    // const loginUserId = req?.user?._id;
-    const loginUserId = "6662894c0178b420fe98e9bd";
+    const loginUserId = req?.user?._id;
+    // const loginUserId = "6662894c0178b420fe98e9bd";
     const isDisLiked = blog?.isDisliked;
     const alreadyLiked = blog?.likes?.find(
         (userId) => userId?.toString() === loginUserId?.toString()

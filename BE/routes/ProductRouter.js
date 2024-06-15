@@ -13,11 +13,12 @@ const {
 } = require("../controller/ProductController");
 
 const {uploadPhoto, productImgResize} = require("../middlewares/uploadImage");
+const {authMiddleware, isAdmin} = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 router.post("/", createProduct);
 router.get("/", getAllProduct);
-router.put("/favorite", addFavorite);
+router.put("/favorite",authMiddleware, addFavorite);
 router.put("/rating", rating);
 router.put("/:id", updateProduct);
 router.get("/tag", getAllProductTag);
