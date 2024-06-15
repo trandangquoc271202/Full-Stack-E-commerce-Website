@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import {NavLink, Link, useNavigate} from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
 import API_URL from "../env/Constants";
@@ -11,7 +11,6 @@ const Header = ({isLoggedIn, handleLogout}) => {
         localStorage.setItem("token", "");
         handleLogout();
     };
-
     return (
         <>
             <header className="header-top-strip py-3">
@@ -63,7 +62,7 @@ const Header = ({isLoggedIn, handleLogout}) => {
                                     </Link>
                                 </div>
                                 <div>
-                                    {(localStorage.getItem("isLogin") === "true" || isLoggedIn) ? (
+                                    {(localStorage.getItem("isLogin") === "true") ? (
                                         <Link onClick={handleLogoutClick} className="d-flex align-items-center gap-10 text-white">
                                             <img src="/images/user.svg" alt="user" />
                                             <p className="mb-0">Đăng xuất</p>

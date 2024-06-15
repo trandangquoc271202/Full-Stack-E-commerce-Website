@@ -30,6 +30,8 @@ const Login = ({handleLogin}) => {
             localStorage.setItem("token", token);
             localStorage.setItem("_id", _id);
             localStorage.setItem("isLogin", true);
+            localStorage.setItem("email", userEmail);
+            localStorage.setItem("name", name);
             handleLogin();
             setEmail("");
             setPassword("");
@@ -41,6 +43,7 @@ const Login = ({handleLogin}) => {
     };
     return (
         <>
+            {(localStorage.getItem("isLogin") === "true")?navigate("/") :""}
             <Meta title="Đăng nhập"></Meta>
             <BreadCrumb title="Đăng nhập"></BreadCrumb>
             <div className="login-wrapper py-5 home-weapper-2">

@@ -3,10 +3,12 @@ const asyncHandler = require("express-async-handler");
 const validationMongoId = require("../validation/validationMongoId");
 const Cart = require("../model/CartModel");
 const Product = require("../model/ProductModel");
+const Order = require("../model/OrderModel");
 const { generateToken } = require("../config/jwtToken");
 const { generateRefreshToken } = require("../config/refreshtoken");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const uniqid = require("uniqid");
 
 const createUser = asyncHandler(async (req, res) => {
     const email = req.body.email;
@@ -219,6 +221,111 @@ const login = asyncHandler(async (req, res) => {
     }
 });
 
+const createOrder = asyncHandler(async (req, res) => {
+    const { COD, couponApplied, address, phoneNumber, shipCost } = req.body;
+    const { _id } = req.user;
+    validationMongoId(_id);
+    try {
+        if (!COD) throw new Error("Create cash order failed");
+        const user = await User.findById(_id);
+        let userCart = await Cart.findOne({ orderby: user._id });
+        if(userCart.products.length<=0) throw new Error("No product in cart");
+        let finalAmout = 0;
+        if (couponApplied && userCart.totalAfterDiscount) {
+            finalAmout = userCart.totalAfterDiscount;
+        } else {
+            finalAmout = userCart.cartTotal;
+        }
+
+        let newOrder = await new Order({
+            products: userCart.products,
+            paymentIntent: {
+                id: uniqid(),
+                method: "COD",
+                amount: finalAmout+shipCost,
+                status: "Cash on Delivery",
+                created: Date.now(),
+                currency: "vnd",
+            },
+            address: address,
+            phoneNumber: phoneNumber,
+            orderby: user._id,
+            orderStatus: "Cash on Delivery",
+        }).save();
+        let update = userCart.products.map((item) => {
+            return {
+                updateOne: {
+                    filter: { _id: item.product._id },
+                    update: { $inc: { quantity: -item.count, sold: +item.count } },
+                },
+            };
+        });
+        const updated = await Product.bulkWrite(update, {});
+        userCart.products = [];
+        userCart.cartTotal = 0;
+        await userCart.save();
+        res.json({ message: "success" });
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+const getOrders = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    validationMongoId(_id);
+    try {
+        const userorders = await Order.find({ orderby: _id })
+            .populate("products.product")
+            .populate("orderby")
+            .exec();
+        res.json(userorders);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+const getAllOrders = asyncHandler(async (req, res) => {
+    try {
+        const alluserorders = await Order.find()
+            .populate("products.product")
+            .populate("orderby")
+            .exec();
+        res.json(alluserorders);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+const getOrderByUserId = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    validationMongoId(id);
+    try {
+        const userorders = await Order.find({ orderby: id })
+            .populate("products.product")
+            .populate("orderby")
+            .exec();
+        res.json(userorders);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+const updateOrderStatus = asyncHandler(async (req, res) => {
+    const { status } = req.body;
+    const { id } = req.params;
+    validationMongoId(id);
+    try {
+        const updateOrderStatus = await Order.findByIdAndUpdate(
+            id,
+            {
+                orderStatus: status,
+                paymentIntent: {
+                    status: status,
+                },
+            },
+            { new: true }
+        );
+        res.json(updateOrderStatus);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
 module.exports = {
     createUser,
     getFavorite,
@@ -226,5 +333,10 @@ module.exports = {
     getUserCart,
     deleteProductFromCart,
     updateQuantityCart,
-    login
+    login,
+    createOrder,
+    getOrders,
+    updateOrderStatus,
+    getAllOrders,
+    getOrderByUserId
 };
