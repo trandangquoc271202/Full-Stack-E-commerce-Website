@@ -17,8 +17,14 @@ const DetailBlog = () => {
     const [blog, setBlog] = useState();
     const [error, setError] = useState(null);
     const like = () => {
-        if (!isLogin) return;
-        axios.put(`${API_URL}/api/blog/likes`, {blogId: id })
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.put(`${API_URL}/api/blog/likes`, {blogId: id },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(response => {
                 // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
                 fetchBlog();
@@ -28,8 +34,14 @@ const DetailBlog = () => {
             });
     };
     const dislike = () => {
-        if (!isLogin) return;
-        axios.put(`${API_URL}/api/blog/dislikes`, {blogId: id })
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.put(`${API_URL}/api/blog/dislikes`, {blogId: id },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(response => {
                 fetchBlog();
             })

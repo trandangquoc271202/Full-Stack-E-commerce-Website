@@ -5,13 +5,16 @@ const {
     userCart,
     getUserCart,
     deleteProductFromCart,
-    updateQuantityCart
+    updateQuantityCart,
+    login
 } = require("../controller/UserController");
+const {authMiddleware, isAdmin} = require("../middlewares/authMiddleware");
 const router = express.Router();
 router.post("/register", createUser);
-router.get("/favorite", getFavorite);
-router.post("/cart", userCart);
-router.get("/cart", getUserCart);
-router.delete('/cart/:id', deleteProductFromCart);
-router.put('/cart', updateQuantityCart);
+router.post("/login", login);
+router.get("/favorite",authMiddleware, getFavorite);
+router.post("/cart",authMiddleware, userCart);
+router.get("/cart",authMiddleware, getUserCart);
+router.delete('/cart/:id',authMiddleware, deleteProductFromCart);
+router.put('/cart', authMiddleware, updateQuantityCart);
 module.exports = router;

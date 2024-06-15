@@ -9,7 +9,6 @@ const SpecialProduct = (props) => {
         currency: 'VND',
     });
     const percent = (product.quantity/product.quantity) + product.sold *100;
-    console.log(percent);
     return (
         <>
             <div className="col-6 mb-3">

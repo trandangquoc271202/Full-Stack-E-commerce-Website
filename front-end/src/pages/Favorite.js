@@ -16,7 +16,14 @@ const Favorite = () => {
     }, []);
 
     const fetchFavorites = () => {
-        axios.get(`${API_URL}/api/user/favorite`)
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.get(`${API_URL}/api/user/favorite`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(response => {
                 setProducts(response.data);
             })
@@ -26,7 +33,14 @@ const Favorite = () => {
     };
 
     const toggleFavorite = (productId) => {
-        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId })
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(response => {
                // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
                 fetchFavorites();

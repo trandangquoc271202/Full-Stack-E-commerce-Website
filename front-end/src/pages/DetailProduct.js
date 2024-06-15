@@ -28,10 +28,11 @@ const DetailProduct = () => {
     };
 
     const handleAddToCart = async () => {
-        if(!isLogin){
+        if (localStorage.getItem("isLogin") !== "true") {
             navigate("/login");
             return;
         }
+        const token = localStorage.getItem('token');
         const cartItem = {
             _id: product._id,
             count: quantity,
@@ -39,12 +40,17 @@ const DetailProduct = () => {
         };
         if (selectedColor === "") {
             alert("Vui lòng chọn màu sắc");
-        }else{
+        } else {
             if (quantity == null || quantity < 1) {
                 alert("Vui lòng chọn lại số lượng");
-            }else{
+            } else {
                 try {
-                    const response = await axios.post(`${API_URL}/api/user/cart`, cartItem);
+                    const response = await axios.post(`${API_URL}/api/user/cart`, cartItem,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        });
                     if (response.status === 200) {
                         alert("Sản phẩm đã thêm thành công");
                     } else {

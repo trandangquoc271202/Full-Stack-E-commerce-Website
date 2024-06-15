@@ -109,8 +109,8 @@ const findById = asyncHandler(async (req, res) => {
 });
 
 const addFavorite = asyncHandler(async (req, res) => {
-    // const { _id } = req.user;
-    const _id = "6662894c0178b420fe98e9bd";
+    const { _id } = req.user;
+    // const _id = "6662894c0178b420fe98e9bd";
     const {prodId} = req.body;
     try {
         const user = await User.findById(_id);
