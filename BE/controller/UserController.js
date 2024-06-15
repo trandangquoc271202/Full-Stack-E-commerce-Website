@@ -3,6 +3,11 @@ const asyncHandler = require("express-async-handler");
 const validationMongoId = require("../validation/validationMongoId");
 const Cart = require("../model/CartModel");
 const Product = require("../model/ProductModel");
+const { generateToken } = require("../config/jwtToken");
+const { generateRefreshToken } = require("../config/refreshtoken");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+
 const createUser = asyncHandler(async (req, res) => {
     const email = req.body.email;
     const findUser = await User.findOne({ email: email });
@@ -86,8 +91,8 @@ const userCart = asyncHandler(async (req, res) => {
 });
 
 const getUserCart = asyncHandler(async (req, res) => {
-    // const { _id } = req.user;
-    const  _id  = "6662894c0178b420fe98e9bd";
+    const { _id } = req.user;
+    // const  _id  = "6662894c0178b420fe98e9bd";
     validationMongoId(_id);
     try {
         const user = await User.findById(_id);
@@ -218,11 +223,41 @@ const updateQuantityCart = asyncHandler(async (req, res) => {
     }
 });
 
+const login = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    // check if user exists or not
+    const findUser = await User.findOne({ email });
+    if (findUser && (await findUser.isPasswordMatched(password))) {
+        const refreshToken = await generateRefreshToken(findUser?._id);
+        const updateuser = await User.findByIdAndUpdate(
+            findUser.id,
+            {
+                refreshToken: refreshToken,
+            },
+            { new: true }
+        );
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            maxAge: 72 * 60 * 60 * 1000,
+        });
+        res.json({
+            _id: findUser?._id,
+            name: findUser?.name,
+            email: findUser?.email,
+            mobile: findUser?.mobile,
+            token: generateToken(findUser?._id),
+        });
+    } else {
+        throw new Error("Invalid Credentials");
+    }
+});
+
 module.exports = {
     createUser,
     getFavorite,
     userCart,
     getUserCart,
     deleteProductFromCart,
-    updateQuantityCart
+    updateQuantityCart,
+    login
 };

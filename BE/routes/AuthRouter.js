@@ -5,10 +5,13 @@ const {
     userCart,
     getUserCart,
     deleteProductFromCart,
-    updateQuantityCart
+    updateQuantityCart,
+    login
 } = require("../controller/UserController");
+const {authMiddleware, isAdmin} = require("../middlewares/authMiddleware");
 const router = express.Router();
 router.post("/register", createUser);
+router.post("/login", login);
 router.get("/favorite", getFavorite);
 router.post("/cart", userCart);
 router.get("/cart", getUserCart);
