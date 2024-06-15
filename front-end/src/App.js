@@ -17,27 +17,27 @@ import DetailBlog from "./pages/DetailBLog";
 import {useState} from "react";
 
 function App() {
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // const handleLogin = () => {
-    //     localStorage.setItem("isLogin", true);
-    //     setIsLoggedIn(true);
-    // };
-    //
-    // const handleLogout = () => {
-    //     localStorage.setItem("isLogin", false);
-    //     setIsLoggedIn(false);
-    // };
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const handleLogin = () => {
+        localStorage.setItem("isLogin", true);
+        setIsLoggedIn(true);
+    };
+
+    const handleLogout = () => {
+        localStorage.setItem("isLogin", false);
+        setIsLoggedIn(false);
+    };
     return (
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Layout />}>
+                    <Route path="/" element={<Layout isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}>
                         <Route index element={<Home />}/>
                         <Route path="about" element={<About/>}/>
                         <Route path="Contact" element={<Contact/>}/>
                         <Route path="Products" element={<Store/>}/>
                         <Route path="blogs" element={<BlogList/>}/>
-                        <Route path="Login" element={<Login/>}/>
+                        <Route path="Login" element={<Login handleLogin={handleLogin}/>}/>
                         <Route path="Forgot-password" element={<ForgotPassword/>}/>
                         <Route path="Signup" element={<SignUp/>}/>
                         <Route path="Products/:id" element={<DetailProduct/>}/>

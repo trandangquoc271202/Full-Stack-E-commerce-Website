@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import API_URL from "../env/Constants";
-const Login = () => {
+const Login = ({handleLogin}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
@@ -30,17 +30,15 @@ const Login = () => {
             localStorage.setItem("token", token);
             localStorage.setItem("_id", _id);
             localStorage.setItem("isLogin", true);
-
+            handleLogin();
             setEmail("");
             setPassword("");
             setError(null);
-            // navigate("/");
+            navigate("/");
         } catch (error) {
-            console.error("Login failed:", error);
-            setError("Login failed. Please try again.");
+            setError("Login không thành công");
         }
     };
-    console.log("login local: " + localStorage.getItem("isLogin"))
     return (
         <>
             <Meta title="Đăng nhập"></Meta>

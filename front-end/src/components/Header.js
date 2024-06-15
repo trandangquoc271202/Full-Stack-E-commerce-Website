@@ -5,17 +5,12 @@ import axios from "axios";
 import API_URL from "../env/Constants";
 import store from "../pages/Store";
 
-const Header = () => {
-    const [isLogin, setIsLogin] = useState(false);
+const Header = ({isLoggedIn, handleLogout}) => {
     const handleLogoutClick = () => {
-        setIsLogin(false);
         localStorage.setItem("isLogin", false);
+        localStorage.setItem("token", "");
+        handleLogout();
     };
-
-    useEffect(() => {
-        const local = localStorage.getItem("isLogin") === "true";
-        setIsLogin(local);
-    }, []);
 
     return (
         <>
@@ -68,7 +63,7 @@ const Header = () => {
                                     </Link>
                                 </div>
                                 <div>
-                                    {isLogin ? (
+                                    {(localStorage.getItem("isLogin") === "true" || isLoggedIn) ? (
                                         <Link onClick={handleLogoutClick} className="d-flex align-items-center gap-10 text-white">
                                             <img src="/images/user.svg" alt="user" />
                                             <p className="mb-0">Đăng xuất</p>

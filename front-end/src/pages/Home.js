@@ -126,8 +126,6 @@ const Home = ({isLoggedIn}) => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-    console.log("home: "+localStorage.getItem("isLogin"));
-    console.log("token: "+localStorage.getItem("token"));
     return (
         <>
             <section className="home-wrapper-1 py-5">
