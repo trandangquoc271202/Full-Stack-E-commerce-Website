@@ -7,8 +7,9 @@ import {Container} from "react-bootstrap";
 import SpecialProduct from "../components/SpecialProduct";
 import axios from "axios";
 import API_URL from "../env/Constants";
+import favorite from "./Favorite";
 
-const Home = () => {
+const Home = ({isLoggedIn}) => {
     const [isLogin, setIsLogin] = useState(true);
     const [products, setProducts] = useState([]);
     const [productsPopular, setProductsPopular] = useState([]);
@@ -19,7 +20,15 @@ const Home = () => {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(4);
     const fetchFavorites = () => {
-        axios.get(`${API_URL}/api/user/favorite`)
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.get(`${API_URL}/api/user/favorite`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            )
             .then(response => {
                 setProductFavorite(response.data);
             })
@@ -28,8 +37,14 @@ const Home = () => {
             });
     };
     const toggleFavorite = (productId) => {
-        if (!isLogin) return;
-        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId })
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(response => {
                 // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
                 fetchFavorites()
@@ -111,6 +126,8 @@ const Home = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
+    console.log("home: "+localStorage.getItem("isLogin"));
+    console.log("token: "+localStorage.getItem("token"));
     return (
         <>
             <section className="home-wrapper-1 py-5">

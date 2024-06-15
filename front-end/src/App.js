@@ -14,30 +14,42 @@ import Checkout from "./pages/Checkout";
 import BlogList from "./pages/BlogList";
 import Favorite from "./pages/Favorite";
 import DetailBlog from "./pages/DetailBLog";
+import {useState} from "react";
+
 function App() {
-  return (
-    <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<Home/>}/>
-          <Route path="about"  element={<About/>}/>
-          <Route path="Contact"  element={<Contact/>}/>
-          <Route path="Products"  element={<Store/>}/>
-          <Route path="blogs"  element={<BlogList/>}/>
-          <Route path="Login"  element={<Login/>}/>
-          <Route path="Forgot-password"  element={<ForgotPassword/>}/>
-          <Route path="Signup"  element={<SignUp/>}/>
-          <Route path="Products/:id"  element={<DetailProduct/>}/>
-          <Route path="Cart"  element={<Cart/>}/>
-          <Route path="Checkout"  element={<Checkout/>}/>
-          <Route path="favorite" element={<Favorite/>}/>
-          <Route path="blogs/:id" element={<DetailBlog/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    </>
-  );
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // const handleLogin = () => {
+    //     localStorage.setItem("isLogin", true);
+    //     setIsLoggedIn(true);
+    // };
+    //
+    // const handleLogout = () => {
+    //     localStorage.setItem("isLogin", false);
+    //     setIsLoggedIn(false);
+    // };
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<Home />}/>
+                        <Route path="about" element={<About/>}/>
+                        <Route path="Contact" element={<Contact/>}/>
+                        <Route path="Products" element={<Store/>}/>
+                        <Route path="blogs" element={<BlogList/>}/>
+                        <Route path="Login" element={<Login/>}/>
+                        <Route path="Forgot-password" element={<ForgotPassword/>}/>
+                        <Route path="Signup" element={<SignUp/>}/>
+                        <Route path="Products/:id" element={<DetailProduct/>}/>
+                        <Route path="Cart" element={<Cart/>}/>
+                        <Route path="Checkout" element={<Checkout/>}/>
+                        <Route path="favorite" element={<Favorite/>}/>
+                        <Route path="blogs/:id" element={<DetailBlog/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;

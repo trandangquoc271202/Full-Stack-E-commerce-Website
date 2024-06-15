@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
-import { MdDeleteOutline } from "react-icons/md";
-import { Link } from "react-router-dom";
+import {MdDeleteOutline} from "react-icons/md";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import API_URL from "../env/Constants";
 
@@ -16,8 +16,15 @@ const Cart = () => {
     });
 
     const fetchProducts = async () => {
+        if (localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
         try {
-            const response = await axios.get(`${API_URL}/api/user/cart`);
+            const response = await axios.get(`${API_URL}/api/user/cart`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
             setCart(response.data);
         } catch (error) {
             setError(error.message);
@@ -31,8 +38,15 @@ const Cart = () => {
     }, [isLogin]);
 
     const handleDelete = async (id) => {
+        if (localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
         try {
-            await axios.delete(`${API_URL}/api/user/cart/${id}`);
+            await axios.delete(`${API_URL}/api/user/cart/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
             fetchProducts(); // Refresh the cart after deletion
         } catch (error) {
             setError(error.message);
@@ -40,28 +54,27 @@ const Cart = () => {
     };
 
     const handleQuantityChange = async (productId, newCount, max) => {
-        if(newCount<=0){
+        if (localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        if (newCount <= 0) {
             newCount = 1;
         }
-        if(newCount > max){
+        if (newCount > max) {
             newCount = max;
         }
         try {
             await axios.put(`${API_URL}/api/user/cart`, {
-                idProductInCart: productId,
-                newCount: newCount
-            });
+                    idProductInCart: productId,
+                    newCount: newCount
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
             fetchProducts(); // Refresh the cart after update
         } catch (error) {
             setError(error.message);
-        }
-    };
-    const handleQuantity = async (newCount, max) => {
-        if(newCount<=0){
-            return 1;
-        }
-        if(newCount > max){
-            return max;
         }
     };
     const products = cart.products || [];
@@ -84,12 +97,13 @@ const Cart = () => {
                                 <h4 className="cart-col-4">TỔNG</h4>
                             </div>
                             {products.length > 0 ? products.map((product) => (
-                                <div key={product._id} className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
+                                <div key={product._id}
+                                     className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
                                     <div className="cart-col-1 gap-15 d-flex align-items-center">
                                         <div className="w-25">
                                             <img
                                                 src={getImages(product)}
-                                                className="img-fluid" alt="product" />
+                                                className="img-fluid" alt="product"/>
                                         </div>
                                         <div className="w-75">
                                             <p>{product.product.title}</p>
@@ -101,12 +115,14 @@ const Cart = () => {
                                     </div>
                                     <div className="cart-col-3 d-flex align-items-center gap-15">
 
-                                        <input className="form-control w-50" type="number" min={1} max={product.product.quantity}
+                                        <input className="form-control w-50" type="number" min={1}
+                                               max={product.product.quantity}
                                                value={product.count}
                                                onChange={(e) => handleQuantityChange(product._id, Number(e.target.value), product.product.quantity)}
-                                               name="" id="" />
+                                               name="" id=""/>
 
-                                        <MdDeleteOutline className="text-danger delete" onClick={() => handleDelete(product._id)} />
+                                        <MdDeleteOutline className="text-danger delete"
+                                                         onClick={() => handleDelete(product._id)}/>
                                     </div>
                                     <div className="cart-col-4">
                                         <h5 className="price">{formatter.format(product.price * product.count)}</h5>
