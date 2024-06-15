@@ -5,7 +5,7 @@ import ReactImageZoom from '../model/ReactImageZoom';
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Color from "../components/Color";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import API_URL from "../env/Constants";
 import color from "../components/Color";
@@ -15,9 +15,12 @@ const DetailProduct = () => {
     const [orderProduct, setOrderProduct] = useState(true);
     const {id} = useParams();
     const [product, setProduct] = useState(null);
+    const [ratings, setRatings] = useState([]);
     const [error, setError] = useState(null);
     const [selectedColor, setSelectedColor] = useState("");
     const [quantity, setQuantity] = useState(1);
+    const [comment, setComment] = useState("");
+    const [star, setStar] = useState(0);
     const navigate = useNavigate();
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -30,7 +33,9 @@ const DetailProduct = () => {
     const handleChangeQuantity = (e) => {
         setQuantity(e.target.value);
     };
-
+    const changeStar = (newRating) => {
+        setStar(newRating);
+    };
     const handleAddToCart = async () => {
         if (localStorage.getItem("isLogin") !== "true") {
             navigate("/login");
@@ -66,16 +71,16 @@ const DetailProduct = () => {
             }
         }
     };
-
+    const fetchProduct = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/api/product/` + id);
+            setProduct(response.data);
+            setRatings(response.data.ratings);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/api/product/` + id);
-                setProduct(response.data);
-            } catch (error) {
-                setError(error.message);
-            }
-        };
         fetchProduct();
     }, [id]);
 
@@ -86,7 +91,30 @@ const DetailProduct = () => {
     if (!product) {
         return <div>Loading...</div>;
     }
+    const commentProduct = async () => {
+        if (localStorage.getItem("isLogin") !== "true") {
+         navigate("/login");
+         return;
+        }
+        const token = localStorage.getItem('token');
+        const body = {
+            star: star,
+            comment: comment,
+            prodId: id
+        };
+        try {
+            const response = await axios.put(`${API_URL}/api/product/rating`, body, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(
 
+            );
+            setRatings(response.data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
     return (
         <>
             <Meta title="Chi tiết sản phẩm"></Meta>
@@ -227,21 +255,23 @@ const DetailProduct = () => {
                                             <ReactStars
                                                 count={5}
                                                 size={24}
-                                                value={0}
-                                                activeColor="#ffd700" edit={true}/>
+                                                value={star}
+                                                activeColor="#ffd700" edit={true}
+                                                onChange={changeStar}
+                                            />
                                         </div>
                                         <div>
                                             <textarea id="" name="" className="form-control w-100" cols="30" rows="4"
-                                                      placeholder="Nội dung"/>
+                                                      placeholder="Nội dung" onChange={(e) => setComment(e.target.value)}/>
                                         </div>
                                         <div className="d-flex justify-content-end">
-                                            <button className="button border-0">Gửi</button>
+                                            <Link className="button border-0" onClick={commentProduct}>Gửi</Link>
                                         </div>
                                     </form>
 
                                 </div>
                                 <div className="reviews mt-4">
-                                    {product.ratings.length > 0 ? product.ratings.map(rating => (
+                                    {ratings.length > 0 ? ratings.map(rating => (
                                         <div className="review">
                                             <div className="d-flex gap-10 align-items-center">
                                                 <h6 className="mb-0">{rating._id}</h6>
