@@ -163,7 +163,7 @@ const DetailProduct = () => {
                                     </div>
                                     <div className="d-flex gap-10 align-items-center my-2">
                                         <h3 className="product-heading">Danh mục: </h3>
-                                        <p className="product-data">{product.category}</p>
+                                        <p className="product-data">{product.category.title}</p>
                                     </div>
                                     <div className="d-flex gap-10 align-items-center my-2">
                                         <h3 className="product-heading">Thẻ: </h3>

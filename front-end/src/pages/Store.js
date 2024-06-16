@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from "../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 import API_URL from "../env/Constants";
+import { Link } from "react-router-dom";
 
 const Store = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -14,10 +15,12 @@ const Store = () => {
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(12);
-
+    const [categories, setCategories] = useState([]);
     const [productFavorite, setProductFavorite] = useState([]);
+    const [currentCategory, setCurrentCategory] = useState(null); // State để lưu ID của danh mục hiện tại
+
     const fetchFavorites = () => {
-        if(localStorage.getItem("isLogin") !== "true") return;
+        if (localStorage.getItem("isLogin") !== "true") return;
         const token = localStorage.getItem('token');
         axios.get(`${API_URL}/api/user/favorite`,
             {
@@ -32,53 +35,88 @@ const Store = () => {
                 setError(error.message);
             });
     };
+
+    const fetchCate = () => {
+        axios.get(`${API_URL}/api/category`)
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+
+    const fetchProductByCate = (id) => {
+        axios.get(`${API_URL}/api/category/product/${id}?page=${page}&limit=${limit}`)
+            .then(response => {
+                setProducts(response.data);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+
     const toggleFavorite = (productId) => {
-        if(localStorage.getItem("isLogin") !== "true") return;
+        if (localStorage.getItem("isLogin") !== "true") return;
         const token = localStorage.getItem('token');
-        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId },
+        axios.put(`${API_URL}/api/product/favorite`, { prodId: productId },
             {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
             .then(response => {
-                // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
-                fetchFavorites()
+                fetchFavorites(); // Sau khi thay đổi, cập nhật lại danh sách yêu thích
             })
             .catch(error => {
                 setError(error.message);
             });
     };
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                setLoading(true);
-                const response = await axios.get(`${API_URL}/api/product`, {
+
+    const fetchProducts = async () => {
+        try {
+            setLoading(true);
+            let response;
+            if (currentCategory) {
+                // Nếu đã chọn danh mục, gọi API lấy sản phẩm từ danh mục
+                response = await axios.get(`${API_URL}/api/category/product/${currentCategory}?page=${page}&limit=${limit}`);
+            } else {
+                // Nếu chưa chọn danh mục, gọi API lấy tất cả sản phẩm
+                response = await axios.get(`${API_URL}/api/product`, {
                     params: {
                         page,
                         limit
                     }
                 });
-                setProducts(response.data);
-                setLoading(false);
-            } catch (error) {
-                setError(error.message);
-                setLoading(false);
             }
-        };
+            setProducts(response.data);
+            setLoading(false);
+        } catch (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
 
+    const isFavorite = (product) => {
+        for (let i = 0; i < productFavorite.length; i++) {
+            if (product._id === productFavorite[i]._id) return true;
+        }
+        return false;
+    };
+
+    const handleCategoryClick = (id) => {
+        setCurrentCategory(id); // Cập nhật danh mục hiện tại khi click vào danh mục
+        setPage(1); // Reset lại trang về 1 khi chọn danh mục mới
+    };
+
+    useEffect(() => {
         fetchProducts();
-
-        if(isLogin){
+        fetchCate();
+        if (isLogin) {
             fetchFavorites();
         }
-    }, [page, limit]);
-    const isFavorite = (product) => {
-      for(let i =0;i< productFavorite.length; i++){
-          if(product._id === productFavorite[i]._id) return true;
-      }
-      return false;
-    };
+    }, [page, limit, isLogin, currentCategory]); // Thêm currentCategory vào dependency để theo dõi thay đổi danh mục
+
     if (error) {
         return <div>Error: {error}</div>;
     }
@@ -95,78 +133,31 @@ const Store = () => {
                                 <h3 className="filter-title">Danh mục</h3>
                                 <div>
                                     <ul className="ps-0">
-                                        <li>Đồng hồ</li>
-                                        <li>TV</li>
-                                        <li>Máy ảnh</li>
-                                        <li>Máy tính</li>
+                                        {categories.length > 0 ? categories.map(cate => (
+                                            <li key={cate._id}>
+                                                <Link
+                                                    to="#"
+                                                    onClick={() => handleCategoryClick(cate._id)} // Xử lý khi nhấn vào danh mục
+                                                    style={{ color: "inherit" }}
+                                                >
+                                                    {cate.title}
+                                                </Link>
+                                            </li>
+                                        )) : <p>Loading...</p>}
                                     </ul>
                                 </div>
                             </div>
                             <div className="filter-card mb-3">
                                 <h3 className="filter-title">Lọc theo</h3>
-                                <div>
-                                    <h5 className="sub-title">Có sẵn</h5>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type={"checkbox"} value="" id=""/>
-                                        <label className="form-check-label" htmlFor="">Tất cả</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type={"checkbox"} value="" id=""/>
-                                        <label className="form-check-label" htmlFor="">Còn hàng (13)</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type={"checkbox"} value="" id=""/>
-                                        <label className="form-check-label" htmlFor="">Hết hàng (0)</label>
-                                    </div>
-                                </div>
                                 <h3 className="sub-title">Giá</h3>
                                 <div className="d-flex align-items-center gap-10">
                                     <div className="form-floating">
-                                        <input className="form-control" type={"number"} id=""/>
+                                        <input className="form-control" type={"number"} id="" />
                                         <label className="form-check-label" htmlFor="">Từ</label>
                                     </div>
                                     <div className="form-floating">
-                                        <input className="form-control" type={"number"} id=""/>
+                                        <input className="form-control" type={"number"} id="" />
                                         <label className="form-check-label" htmlFor="">Đến</label>
-                                    </div>
-                                </div>
-                                <h3 className="sub-title">Màu sắc</h3>
-                                <div>
-                                    <ul className="colors ps-0">
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </div>
-                                <h3 className="sub-title">Kích thước</h3>
-                                <div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type={"checkbox"} value="" id=""/>
-                                        <label className="form-check-label" htmlFor="">S (2)</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type={"checkbox"} value="" id=""/>
-                                        <label className="form-check-label" htmlFor="">M (2)</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type={"checkbox"} value="" id=""/>
-                                        <label className="form-check-label" htmlFor="">L (2)</label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type={"checkbox"} value="" id=""/>
-                                        <label className="form-check-label" htmlFor="">XL (2)</label>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +178,7 @@ const Store = () => {
                                 <div>
                                     <div className="random-products mb-3 d-flex">
                                         <div className="w-50">
-                                            <img src="/images/watch.jpg" className="img-fluid" alt="watch"/>
+                                            <img src="/images/watch.jpg" className="img-fluid" alt="watch" />
                                         </div>
                                         <div className="w-50">
                                             <h5>GMW-B5000D-2</h5>
@@ -195,13 +186,13 @@ const Store = () => {
                                                 count={5}
                                                 size={24}
                                                 value={4}
-                                                activeColor="#ffd700" edit={false}/>
+                                                activeColor="#ffd700" edit={false} />
                                             <p>2.000.000 VNĐ</p>
                                         </div>
                                     </div>
                                     <div className="random-products d-flex">
                                         <div className="w-50">
-                                            <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-14-pro_2__5.png" className="img-fluid" alt="watch"/>
+                                            <img src="https://cellphones.com.vn/media/catalog/product/i/p/iphone-14-pro_2__5.png" className="img-fluid" alt="watch"/>
                                         </div>
                                         <div className="w-50">
                                             <h5>Iphone 15</h5>
@@ -225,8 +216,6 @@ const Store = () => {
                                             <option defaultValue>Chọn</option>
                                             <option value="">Nổi bật</option>
                                             <option value="">Bán chạy</option>
-                                            <option value="">A-Z</option>
-                                            <option value="">Z-A</option>
                                             <option value="">Giá từ thấp đến cao</option>
                                             <option value="">Giá từ cao đến thấp</option>
                                         </select>
@@ -290,7 +279,6 @@ const Store = () => {
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -299,3 +287,4 @@ const Store = () => {
 }
 
 export default Store;
+
