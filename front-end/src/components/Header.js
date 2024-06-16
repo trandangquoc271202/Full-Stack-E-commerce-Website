@@ -1,26 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
+import React, {useEffect, useState} from "react";
+import {NavLink, Link, useNavigate} from "react-router-dom";
+import {BsSearch} from "react-icons/bs";
 import axios from "axios";
 import API_URL from "../env/Constants";
 
-const Header = ({ isLoggedIn, handleLogout }) => {
+const Header = ({isLoggedIn, handleLogout}) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
-
+    const [categories, setCategories] = useState([]);
+    const [error, setError] = useState(null);
     const handleLogoutClick = () => {
         localStorage.setItem("isLogin", false);
         localStorage.setItem("token", "");
         handleLogout();
     };
-
+    const fetchCate = () => {
+        axios.get(`${API_URL}/api/category`)
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
     useEffect(() => {
+        fetchCate();
         if (searchTerm) {
             const fetchData = async () => {
                 try {
                     const response = await axios.get(`${API_URL}/api/product/search`, {
-                        params: { title: searchTerm },
+                        params: {title: searchTerm},
                     });
                     setSearchResults(response.data);
                     setShowResults(true);
@@ -72,7 +82,7 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                                     onFocus={() => setShowResults(true)}
                                 />
                                 <span className="input-group-text p-3" id="basic-addon2">
-                                    <BsSearch className="fs-6" />
+                                    <BsSearch className="fs-6"/>
                                 </span>
                             </div>
                             {showResults && searchResults.length > 0 && (
@@ -81,7 +91,7 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                                         <li key={result._id} className="list-group-item">
                                             <img
                                                 src={result.images.length > 0 ? result.images[0].url : 'images/default-product.jpg'}
-                                                className="img-fluid" alt="product" style={{width:"40px"}}/>
+                                                className="img-fluid" alt="product" style={{width: "40px"}}/>
                                             <Link to={`/products/${result._id}`} onClick={() => setShowResults(false)}>
                                                 {result.title}
                                             </Link>
@@ -129,7 +139,7 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                                             <img src="/images/user.svg" alt="user"/>
                                             <p className="mb-0">Hồ sơ</p>
                                         </Link>
-                                    ) :""}
+                                    ) : ""}
                                 </div>
                                 <div>
                                     <Link className="d-flex align-items-center gap-10 text-white" to={"/cart"}>
@@ -159,12 +169,15 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                                             <span className="me-5 d-inline-block">Danh mục</span>
                                         </button>
                                         <ul className="dropdown-menu">
-                                            <li><Link className="dropdown-item text-white" to="#">Máy tính</Link></li>
-                                            <li><Link className="dropdown-item text-white" to="#">Máy ảnh</Link></li>
-                                            <li><Link className="dropdown-item text-white" to="#">Đồng hồ</Link></li>
-                                            <li><Link className="dropdown-item text-white" to="#">Phụ kiện</Link></li>
-                                            <li><Link className="dropdown-item text-white" to="#">TV</Link></li>
-                                            <li><Link className="dropdown-item text-white" to="#">Máy tính bảng</Link></li>
+                                            {categories.length > 0 ? categories.map(cate => (
+                                                <li>
+                                                    <li>
+                                                        <Link className="dropdown-item text-white" to="#">
+                                                            {cate.title}
+                                                        </Link>
+                                                    </li>
+                                                </li>
+                                            )) : <p>Loading...</p>}
                                         </ul>
                                     </div>
                                 </div>
