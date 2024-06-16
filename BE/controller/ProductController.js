@@ -351,6 +351,21 @@ const addColorToProduct = asyncHandler(async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+const searchProductsByName = async (req, res) => {
+    const { title } = req.query;
+
+    try {
+
+        const products = await Product.find({
+            title: { $regex: title, $options: "i" },
+        });
+
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 module.exports = {
     createProduct,
     getAllProduct,
@@ -361,5 +376,6 @@ module.exports = {
     rating,
     uploadImagesProduct,
     getAllProductTag,
-    addColorToProduct
+    addColorToProduct,
+    searchProductsByName
 };

@@ -16,7 +16,11 @@ const createUser = asyncHandler(async (req, res) => {
 
     if (!findUser) {
         const newUser = await User.create(req.body);
-        res.json(newUser);
+        const body = {
+            "status": "true",
+            "message": "Register success"
+        }
+        res.json(body);
     } else {
         throw new Error("User Already Exists");
     }
@@ -217,7 +221,7 @@ const login = asyncHandler(async (req, res) => {
             token: generateToken(findUser?._id),
         });
     } else {
-        throw new Error("Invalid Credentials");
+        throw new Error("Email or password invalid");
     }
 });
 
@@ -275,6 +279,19 @@ const getOrders = asyncHandler(async (req, res) => {
     try {
         const userorders = await Order.find({ orderby: _id })
             .populate("products.product")
+            .populate("orderby")
+            .exec();
+        res.json(userorders.reverse());
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+const getOrderById = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    validationMongoId(_id);
+    const {id} = req.params;
+    try {
+        const userorders = await Order.findOne({_id:id, orderby: _id}).populate("products.product")
             .populate("orderby")
             .exec();
         res.json(userorders);
@@ -338,5 +355,6 @@ module.exports = {
     getOrders,
     updateOrderStatus,
     getAllOrders,
-    getOrderByUserId
+    getOrderByUserId,
+    getOrderById
 };
