@@ -15,6 +15,8 @@ import BlogList from "./pages/BlogList";
 import Favorite from "./pages/Favorite";
 import DetailBlog from "./pages/DetailBLog";
 import {useState} from "react";
+import Profile from "./pages/Profile";
+import DetailOrder from "./pages/DetailOrder";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,6 +47,8 @@ function App() {
                         <Route path="Checkout" element={<Checkout/>}/>
                         <Route path="favorite" element={<Favorite/>}/>
                         <Route path="blogs/:id" element={<DetailBlog/>}/>
+                        <Route path="profile" element={<Profile/>}/>
+                        <Route path="order/:id" element={<DetailOrder/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

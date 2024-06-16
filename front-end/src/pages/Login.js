@@ -18,10 +18,9 @@ const Login = ({handleLogin}) => {
                 },
                 body: JSON.stringify({email, password}),
             });
-
+            console.log(response.ok)
             if (!response.ok) {
-                const errorData = await response.json();
-                setError(errorData.message || "Something went wrong.");
+                setError( "Login không thành công");
                 return;
             }
             const data = await response.json();
@@ -88,7 +87,7 @@ const Login = ({handleLogin}) => {
                                     </div>
                                 </div>
                             </form>
-                            {error && <div className="text-danger mt-3">{error}</div>}
+                            {error && <div className="mt-2 alert alert-danger">{error}</div>}
                         </div>
                     </div>
                 </div>

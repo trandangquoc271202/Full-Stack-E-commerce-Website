@@ -9,7 +9,8 @@ const {
     rating,
     uploadImagesProduct,
     getAllProductTag,
-    addColorToProduct
+    addColorToProduct,
+    searchProductsByName
 } = require("../controller/ProductController");
 
 const {uploadPhoto, productImgResize} = require("../middlewares/uploadImage");
@@ -22,6 +23,7 @@ router.put("/favorite",authMiddleware, addFavorite);
 router.put("/rating",authMiddleware, rating);
 router.put("/:id",authMiddleware,isAdmin, updateProduct);
 router.get("/tag", getAllProductTag);
+router.get("/search", searchProductsByName);
 router.get("/:id", findById);
 router.delete("/:id",authMiddleware, isAdmin, deleteProduct);
 router.post(
@@ -32,4 +34,5 @@ router.post(
     uploadImagesProduct
 );
 router.put("/color/:id",authMiddleware, isAdmin, addColorToProduct);
+
 module.exports = router;
