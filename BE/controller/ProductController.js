@@ -100,7 +100,7 @@ const findById = asyncHandler(async (req, res) => {
     const id = req.params.id;
     validationMongoId(id);
     try {
-        const product = await Product.findById({_id: id});
+        const product = await Product.findById({_id: id}).populate('category');
         product.ratings = product.ratings.reverse();
         res.json(product);
     } catch (error) {
