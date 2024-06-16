@@ -720,7 +720,15 @@ footer .input-group-text {
 }
 /*Contact end*/
 
-
+/* Đảm bảo phần tử có position khác static */
+.search-results {
+    position: absolute; /* hoặc relative, fixed, sticky tùy vào trường hợp cụ thể */
+    z-index: 1000; /* Giá trị z-index cao để đảm bảo phần tử xuất hiện phía trên */
+    background: white; /* Để đảm bảo phần tử không trong suốt */
+    width: 100%; /* Tùy chỉnh kích thước theo yêu cầu */
+    border: 1px solid #ccc; /* Tùy chỉnh giao diện theo yêu cầu */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Tạo bóng đổ cho đẹp hơn */
+}
 
 /*Responsive header*/
 /*     !* CSS cho container chính *!*/

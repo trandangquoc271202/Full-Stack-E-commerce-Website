@@ -1,16 +1,40 @@
 import React, { useEffect, useState } from "react";
-import {NavLink, Link, useNavigate} from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
 import API_URL from "../env/Constants";
-import store from "../pages/Store";
 
-const Header = ({isLoggedIn, handleLogout}) => {
+const Header = ({ isLoggedIn, handleLogout }) => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+    const [showResults, setShowResults] = useState(false);
+
     const handleLogoutClick = () => {
         localStorage.setItem("isLogin", false);
         localStorage.setItem("token", "");
         handleLogout();
     };
+
+    useEffect(() => {
+        if (searchTerm) {
+            const fetchData = async () => {
+                try {
+                    const response = await axios.get(`${API_URL}/api/product/search`, {
+                        params: { title: searchTerm },
+                    });
+                    setSearchResults(response.data);
+                    setShowResults(true);
+                } catch (error) {
+                    console.error("Lỗi khi tìm kiếm sản phẩm:", error);
+                }
+            };
+            fetchData();
+        } else {
+            setSearchResults([]);
+            setShowResults(false);
+        }
+    }, [searchTerm]);
+
     return (
         <>
             <header className="header-top-strip py-3">
@@ -37,14 +61,37 @@ const Header = ({isLoggedIn, handleLogout}) => {
                         </div>
                         <div className="col-5">
                             <div className="input-group mb-0">
-                                <input type="text" className="form-control py-2" placeholder="Tìm kiếm sản phẩm tại đây" aria-label="Tìm kiếm sản phẩm tại đây" aria-describedby="basic-addon2" />
+                                <input
+                                    type="text"
+                                    className="form-control py-2"
+                                    placeholder="Tìm kiếm sản phẩm tại đây"
+                                    aria-label="Tìm kiếm sản phẩm tại đây"
+                                    aria-describedby="basic-addon2"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onFocus={() => setShowResults(true)}
+                                />
                                 <span className="input-group-text p-3" id="basic-addon2">
                                     <BsSearch className="fs-6" />
                                 </span>
                             </div>
+                            {showResults && searchResults.length > 0 && (
+                                <ul className="list-group position-absolute search-results w-auto">
+                                    {searchResults.map((result) => (
+                                        <li key={result._id} className="list-group-item">
+                                            <img
+                                                src={result.images.length > 0 ? result.images[0].url : 'images/default-product.jpg'}
+                                                className="img-fluid" alt="product" style={{width:"40px"}}/>
+                                            <Link to={`/products/${result._id}`} onClick={() => setShowResults(false)}>
+                                                {result.title}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                         <div className="col-5">
-                            <div className="header-upper-links d-flex align-items-center justify-content-between">
+                        <div className="header-upper-links d-flex align-items-center justify-content-between">
                                 <div>
                                     <Link className="d-flex align-items-center gap-10 text-white">
                                         <img src="/images/compare.svg" alt="compare" />
