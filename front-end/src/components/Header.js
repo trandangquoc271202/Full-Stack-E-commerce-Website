@@ -91,39 +91,49 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                             )}
                         </div>
                         <div className="col-5">
-                        <div className="header-upper-links d-flex align-items-center justify-content-between">
+                            <div className="header-upper-links d-flex align-items-center justify-content-between">
                                 <div>
                                     <Link className="d-flex align-items-center gap-10 text-white">
-                                        <img src="/images/compare.svg" alt="compare" />
+                                        <img src="/images/compare.svg" alt="compare"/>
                                         <p className="mb-0">
-                                            So sánh<br />sản phẩm
+                                            So sánh<br/>sản phẩm
                                         </p>
                                     </Link>
                                 </div>
                                 <div>
                                     <Link to={"/favorite"} className="d-flex align-items-center gap-10 text-white">
-                                        <img src="/images/wishlist.svg" alt="wishlist" />
+                                        <img src="/images/wishlist.svg" alt="wishlist"/>
                                         <p className="mb-0">
-                                            Sản phẩm<br />yêu thích
+                                            Sản phẩm<br/>yêu thích
                                         </p>
                                     </Link>
                                 </div>
                                 <div>
                                     {(localStorage.getItem("isLogin") === "true") ? (
-                                        <Link onClick={handleLogoutClick} className="d-flex align-items-center gap-10 text-white">
-                                            <img src="/images/user.svg" alt="user" />
+                                        <Link onClick={handleLogoutClick}
+                                              className="d-flex align-items-center gap-10 text-white">
+                                            <img src="/images/user.svg" alt="user"/>
                                             <p className="mb-0">Đăng xuất</p>
                                         </Link>
                                     ) : (
                                         <Link to="/Login" className="d-flex align-items-center gap-10 text-white">
-                                            <img src="/images/user.svg" alt="user" />
+                                            <img src="/images/user.svg" alt="user"/>
                                             <p className="mb-0">Đăng nhập</p>
                                         </Link>
                                     )}
                                 </div>
                                 <div>
+                                    {(localStorage.getItem("isLogin") === "true") ? (
+                                        <Link to={"/profile"}
+                                              className="d-flex align-items-center gap-10 text-white">
+                                            <img src="/images/user.svg" alt="user"/>
+                                            <p className="mb-0">Hồ sơ</p>
+                                        </Link>
+                                    ) :""}
+                                </div>
+                                <div>
                                     <Link className="d-flex align-items-center gap-10 text-white" to={"/cart"}>
-                                        <img src="/images/cart.svg" alt="cart" />
+                                        <img src="/images/cart.svg" alt="cart"/>
                                         <div className="d-flex flex-column gap-10">
                                             <span className="badge bg-white text-dark"></span>
                                             <p className="mb-0"></p>
@@ -142,8 +152,10 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                             <div className="menu-bottom d-flex align-items-center gap-30">
                                 <div>
                                     <div className="dropdown">
-                                        <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 gap-15 d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="/images/menu.svg" alt="" />
+                                        <button
+                                            className="btn btn-secondary dropdown-toggle bg-transparent border-0 gap-15 d-flex align-items-center"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/images/menu.svg" alt=""/>
                                             <span className="me-5 d-inline-block">Danh mục</span>
                                         </button>
                                         <ul className="dropdown-menu">

@@ -730,6 +730,21 @@ footer .input-group-text {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Tạo bóng đổ cho đẹp hơn */
 }
 
+.name-user{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 /*Responsive header*/
 /*     !* CSS cho container chính *!*/
 /* .header-upper-links {*/
