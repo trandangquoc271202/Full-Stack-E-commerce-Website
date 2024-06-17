@@ -60,7 +60,20 @@ a {
     background-color: var(--color-febd69);
     color: #131921;
 }
-
+.button-pagination{
+    background-color: var(--color-232f3e);
+    color: white;
+    font-size: 14px;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+.button-pagination:disabled{
+    background-color: #e16d56;
+    color: white;
+    font-size: 14px;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
 .section-heading {
     font-size: 26px;
     line-height: 32px;
@@ -158,7 +171,6 @@ footer .input-group-text {
 /*Footer end*/
 
 /*Home */
-
 .main-banner-content {
     top: 15%;
     left: 5%;
@@ -222,8 +234,7 @@ footer .input-group-text {
 }
 
 .small-banner {
-    width: 49%;
-
+    width: 42%;
 }
 
 /*Home wrapper 2*/
@@ -310,7 +321,10 @@ footer .input-group-text {
     top: 2%;
     right: 15px;
 }
-
+.favorite-icon {
+    top: 2%;
+    right: 5px;
+}
 /*Product card end*/
 
 /*Product special*/
@@ -612,7 +626,9 @@ footer .input-group-text {
 .gr-3 {
     width: 24%;
 }
-
+.gr-2 {
+    width: 18%;
+}
 .gr-12 .product-card {
     display: flex;
     gap: 20px;
@@ -704,8 +720,31 @@ footer .input-group-text {
 }
 /*Contact end*/
 
+/* Đảm bảo phần tử có position khác static */
+.search-results {
+    position: absolute; /* hoặc relative, fixed, sticky tùy vào trường hợp cụ thể */
+    z-index: 1000; /* Giá trị z-index cao để đảm bảo phần tử xuất hiện phía trên */
+    background: white; /* Để đảm bảo phần tử không trong suốt */
+    width: 100%; /* Tùy chỉnh kích thước theo yêu cầu */
+    border: 1px solid #ccc; /* Tùy chỉnh giao diện theo yêu cầu */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Tạo bóng đổ cho đẹp hơn */
+}
 
+.name-user{
+    font-size: 30px;
+    font-weight: bold;
+}
 
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 /*Responsive header*/
 /*     !* CSS cho container chính *!*/
 /* .header-upper-links {*/

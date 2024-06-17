@@ -1,25 +1,143 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Marquee from "react-fast-marquee"
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import {Container} from "react-bootstrap";
 import SpecialProduct from "../components/SpecialProduct";
+import axios from "axios";
+import API_URL from "../env/Constants";
+import favorite from "./Favorite";
 
-const Home = () => {
+const Home = ({isLoggedIn}) => {
+    const [isLogin, setIsLogin] = useState(true);
+    const [products, setProducts] = useState([]);
+    const [productsPopular, setProductsPopular] = useState([]);
+    const [productsFeature, setProductsFeature] = useState([]);
+    const [productFavorite, setProductFavorite] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+    const [error, setError] = useState(null);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(4);
+    const fetchFavorites = () => {
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.get(`${API_URL}/api/user/favorite`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            )
+            .then(response => {
+                setProductFavorite(response.data);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+    const toggleFavorite = (productId) => {
+        if(localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        axios.put(`${API_URL}/api/product/favorite`, {prodId: productId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                // Sau khi xoa se goi lai ham ferchFavorite de cap nhat lai danh sach yeu thich
+                fetchFavorites()
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+    const isFavorite = (product) => {
+        for(let i =0;i< productFavorite.length; i++){
+            if(product._id === productFavorite[i]._id) return true;
+        }
+        return false;
+    };
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/product/tag`, {
+                    params: {
+                        page,
+                        limit,
+                        tag:"special"
+                    }
+                });
+                setProducts(response.data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+        const fetchProductsPopular = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/product/tag`, {
+                    params: {
+                        page,
+                        limit,
+                        tag:"popular"
+                    }
+                });
+                setProductsPopular(response.data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+        const fetchProductsFeature = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/product/tag`, {
+                    params: {
+                        page,
+                        limit,
+                        tag:"feature"
+                    }
+                });
+                setProductsFeature(response.data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+        const fetchBlogs = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/blog`, {
+                    params: {
+                        page,
+                        limit
+                    }
+                });
+                setBlogs(response.data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+        fetchProducts();
+        fetchProductsPopular();
+        fetchProductsFeature();
+        fetchBlogs();
+        if(isLogin){
+            fetchFavorites();
+        }
+    }, [page, limit]);
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
     return (
         <>
-
             <section className="home-wrapper-1 py-5">
                 <div className="container-xxl">
                     <div className="row">
                         <div className="col-6">
                             <div className="main-banner position-relative">
-                                <img src="images/main-banner-1.jpg" className="img-fluid rounded-3" alt="main banner"/>
+                                <img src="https://cdn.tgdd.vn/Files/2023/03/17/1518606/1-290923-143626.jpg"  className="img-fluid rounded-3 " alt="main banner"/>
                                 <div className="main-banner-content position-absolute">
                                     <h4>SIÊU GIẢM GIÁ.</h4>
-                                    <h5>Ipad S13+ Pro.</h5>
-                                    <p>Từ 23 triệu hoặc 1 triệu/tháng.</p>
+                                    <h5>Iphone 15</h5>
+                                    <p>Trả góp 1 triệu/tháng.</p>
                                     <Link className="button">MUA NGAY</Link>
                                 </div>
                             </div>
@@ -147,7 +265,7 @@ const Home = () => {
                                 </div>
                                 <div className="d-flex gap align-items-center">
                                     <div>
-                                        <h6>Cameras</h6>
+                                        <h6>Smart Phone</h6>
                                         <p>10 sản phẩm</p>
                                     </div>
                                     <img src="images/camera.jpg" alt="camera"/>
@@ -222,14 +340,15 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
-                                     price="22.000.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-pova-5_2_.png" brand="TECNO" title="TECNO POVA"
-                                     price="4.000.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-spark-20-pro-plus_1__2.png" brand="TECNO" title="TECNO SPARK"
-                                     price="5.050.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_m3_slot.png" brand="APPLE" title="Air M3"
-                                     price="27.190.000 VNĐ"/>
+                        {productsPopular.length > 0 ? productsPopular.map(product => (
+                            <ProductCard
+                                key={product._id}
+                                id={product._id}
+                                product={product}
+                                isFavorite={isFavorite(product)}
+                                toggleFavorite={toggleFavorite}
+                            />
+                        )) : <p>Loading...</p>}
                     </div>
                 </div>
             </section>
@@ -240,9 +359,12 @@ const Home = () => {
                             <h3 className="section-heading">Sản phẩm đặc biệt</h3>
                         </div>
                         <div className="row">
-                            <SpecialProduct/>
-                            <SpecialProduct/>
-                            <SpecialProduct/>
+                            {products.length > 0 ? products.map(product => (
+                                <SpecialProduct
+                                    key={product._id}
+                                    product={product}
+                                />
+                            )) : <p>Loading...</p>}
                         </div>
                     </div>
                 </div>
@@ -254,41 +376,30 @@ const Home = () => {
                         <div className="col-12">
                             <h3 className="section-heading">Bộ sưu tập nổi bật</h3>
                         </div>
-                        <ProductCard image="images/product1.png" brand="G-SHOCK" title="GMW-B5000D-2"
-                                     price="22.000.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-pova-5_2_.png" brand="TECNO" title="TECNO POVA"
-                                     price="4.000.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/tecno-spark-20-pro-plus_1__2.png" brand="TECNO" title="TECNO SPARK"
-                                     price="5.050.000 VNĐ"/>
-                        <ProductCard image="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_m3_slot.png" brand="APPLE" title="Air M3"
-                                     price="27.190.000 VNĐ"/>
+                        {productsFeature.length > 0 ? productsFeature.map(product => (
+                            <ProductCard
+                                key={product._id}
+                                id={product._id}
+                                product={product}
+                                isFavorite={isFavorite(product)}
+                                toggleFavorite={toggleFavorite}
+                            />
+                        )) : <p>Loading...</p>}
                     </div>
                 </div>
             </section>
-            {/*<section className="famous-wrapper py-5 home-wrapper-2">*/}
-            {/*    <div className="container-xxl">*/}
-            {/*        <div className="row">*/}
-            {/*            <div className="col-3">*/}
-            {/*                <div className="famous-card bg-dark">*/}
-            {/*                    <img src="images/tab.jpg" alt="famous" />*/}
-            {/*                    <h5>Màn hình lớn</h5>*/}
-            {/*                    <h6>Đồng hồ thông minh dòng 7</h6>*/}
-            {/*                    <p>Từ 1.000.000 đến 5.000.000 VNĐ</p>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
             <section className="blog-wrapper py-5 home-wrapper-2">
                 <div className="container-xxl">
                     <div className="row">
                         <div className="col-12">
                             <h3 className="section-heading">Blog của chúng tôi</h3>
                         </div>
-                        <BlogCard image="images/blog-1.jpg"/>
-                        <BlogCard image="images/blog-1.jpg"/>
-                        <BlogCard image="images/blog-1.jpg"/>
-                        <BlogCard image="images/blog-1.jpg"/>
+                        {blogs.length > 0 ? blogs.map(blog => (
+                            <BlogCard
+                                key={blog._id}
+                                blog={blog}
+                            />
+                        )) : <p>Loading...</p>}
                     </div>
                 </div>
             </section>

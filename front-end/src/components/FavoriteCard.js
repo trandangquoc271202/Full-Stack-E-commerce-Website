@@ -3,8 +3,8 @@ import {Link} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import {MdFavorite} from "react-icons/md";
 
-const ProductCard = (props) => {
-    const {grid, toggleFavorite, product} = props;
+const FavoriteCard = (props) => {
+    const { grid,product, toggleFavorite } = props;
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
@@ -12,21 +12,19 @@ const ProductCard = (props) => {
     return (
             <div className={`${grid != null ? `gr-${grid}` : "gr-3"}`}>
             <div className="product-card position-relative">
-                <div className="wishlist-icon position-absolute" onClick={() => toggleFavorite(props.id)}>
-                        {props.isFavorite ? <MdFavorite style={{"color": "red"}}/> :
-                            <img src="images/wish.svg" alt="wishlist"/>}
+                <div className="favorite-icon position-absolute">
+                    <div className="favorite-icon position-absolute" onClick={() => toggleFavorite(product._id)}>
+                        <MdFavorite  style={{color: "red", cursor: "pointer"}}/>
+                    </div>
                 </div>
                 <div className="product-image">
                     <Link to={"/products/"+product._id}>
-                        <img src={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'}
-                             className="img-fluid" alt="product"/>
+                        <img src={product.images.length > 0 ? product.images[0].url : 'images/default-product.jpg'} className="img-fluid" alt="product"/>
                     </Link>
                 </div>
                 <div className="product-details">
-                    <h6 className="brand">{product.brand}</h6>
-                    <Link to={"/products/"+product._id}>
+                <h6 className="brand">{product.brand}</h6>
                     <h5 className="product-title">{product.title}</h5>
-                    </Link>
                     <ReactStars
                         count={5}
                         size={24}
@@ -52,4 +50,4 @@ const ProductCard = (props) => {
         </div>
     );
 }
-export default ProductCard;
+export default FavoriteCard;

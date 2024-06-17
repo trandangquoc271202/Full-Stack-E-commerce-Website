@@ -9,33 +9,51 @@ import DetailProduct from "./pages/DetailProduct";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
 import Store from "./pages/Store";
-import TestImage from "./pages/TestImage";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import BlogList from "./pages/BlogList";
+import Favorite from "./pages/Favorite";
+import DetailBlog from "./pages/DetailBLog";
+import {useState} from "react";
+import Profile from "./pages/Profile";
+import DetailOrder from "./pages/DetailOrder";
+
 function App() {
-  return (
-    <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<Home/>}/>
-          <Route path="about"  element={<About/>}/>
-          <Route path="Contact"  element={<Contact/>}/>
-          <Route path="store"  element={<Store/>}/>
-          <Route path="blogs"  element={<BlogList/>}/>
-          <Route path="Login"  element={<Login/>}/>
-          <Route path="Forgot-password"  element={<ForgotPassword/>}/>
-          <Route path="Signup"  element={<SignUp/>}/>
-          <Route path="test"  element={<TestImage/>}/>
-          <Route path="Detail"  element={<DetailProduct/>}/>
-          <Route path="Cart"  element={<Cart/>}/>
-          <Route path="Checkout"  element={<Checkout/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    </>
-  );
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const handleLogin = () => {
+        localStorage.setItem("isLogin", true);
+        setIsLoggedIn(true);
+    };
+
+    const handleLogout = () => {
+        localStorage.setItem("isLogin", false);
+        setIsLoggedIn(false);
+    };
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Layout isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>}>
+                        <Route index element={<Home />}/>
+                        <Route path="about" element={<About/>}/>
+                        <Route path="Contact" element={<Contact/>}/>
+                        <Route path="Products" element={<Store/>}/>
+                        <Route path="blogs" element={<BlogList/>}/>
+                        <Route path="Login" element={<Login handleLogin={handleLogin}/>}/>
+                        <Route path="Forgot-password" element={<ForgotPassword/>}/>
+                        <Route path="Signup" element={<SignUp/>}/>
+                        <Route path="Products/:id" element={<DetailProduct/>}/>
+                        <Route path="Cart" element={<Cart/>}/>
+                        <Route path="Checkout" element={<Checkout/>}/>
+                        <Route path="favorite" element={<Favorite/>}/>
+                        <Route path="blogs/:id" element={<DetailBlog/>}/>
+                        <Route path="profile" element={<Profile/>}/>
+                        <Route path="order/:id" element={<DetailOrder/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;

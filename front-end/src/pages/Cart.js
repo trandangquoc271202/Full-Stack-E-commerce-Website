@@ -1,10 +1,87 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import {MdDeleteOutline} from "react-icons/md";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import API_URL from "../env/Constants";
 
 const Cart = () => {
+    const [cart, setCart] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLogin, setIsLogin] = useState(true);
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+    const fetchProducts = async () => {
+        if (localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.get(`${API_URL}/api/user/cart`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            setCart(response.data);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    useEffect(() => {
+        if (isLogin) {
+            fetchProducts();
+        }
+    }, [isLogin]);
+
+    const handleDelete = async (id) => {
+        if (localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        try {
+            await axios.delete(`${API_URL}/api/user/cart/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            fetchProducts(); // Refresh the cart after deletion
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const handleQuantityChange = async (productId, newCount, max) => {
+        if (localStorage.getItem("isLogin") !== "true") return;
+        const token = localStorage.getItem('token');
+        if (newCount <= 0) {
+            newCount = 1;
+        }
+        if (newCount > max) {
+            newCount = max;
+        }
+        try {
+            await axios.put(`${API_URL}/api/user/cart`, {
+                    idProductInCart: productId,
+                    newCount: newCount
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            fetchProducts(); // Refresh the cart after update
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+    const products = cart.products || [];
+
+    const getImages = (product) => {
+        return product.product.images.length > 0 ? product.product.images[0].url : 'images/default-product.jpg';
+    };
     return (
         <>
             <Meta title="Giỏ hàng"></Meta>
@@ -19,69 +96,48 @@ const Cart = () => {
                                 <h4 className="cart-col-3">SỐ LƯỢNG</h4>
                                 <h4 className="cart-col-4">TỔNG</h4>
                             </div>
-                            <div className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
-                                <div className="cart-col-1 gap-15 d-flex align-items-center">
-                                    <div className="w-25">
-                                        <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_10__3_11.png" className="img-fluid" alt=""/>
+                            {products.length > 0 ? products.map((product) => (
+                                <div key={product._id}
+                                     className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
+                                    <div className="cart-col-1 gap-15 d-flex align-items-center">
+                                        <div className="w-25">
+                                            <img
+                                                src={getImages(product)}
+                                                className="img-fluid" alt="product"/>
+                                        </div>
+                                        <div className="w-75">
+                                            <p>{product.product.title}</p>
+                                            <p>Màu sắc: {product.color}</p>
+                                        </div>
                                     </div>
-                                    <div className="w-75">
-                                        <p>MSI GF63</p>
-                                        <p>Màu sắc: Đen</p>
-                                        <p>Kích thước: </p>
+                                    <div className="cart-col-2">
+                                        <h5 className="price">{formatter.format(product.price)}</h5>
                                     </div>
-                                </div>
-                                <div className="cart-col-2">
-                                    <h5 className="price">18.000.000VNĐ</h5>
-                                </div>
-                                <div className="cart-col-3 d-flex align-items-center gap-15">
-                                    <div>
-                                        <input className="form-control" type="number" min={1} max={10} defaultValue={1}
+                                    <div className="cart-col-3 d-flex align-items-center gap-15">
+
+                                        <input className="form-control w-50" type="number" min={1}
+                                               max={product.product.quantity}
+                                               value={product.count}
+                                               onChange={(e) => handleQuantityChange(product._id, Number(e.target.value), product.product.quantity)}
                                                name="" id=""/>
+
+                                        <MdDeleteOutline className="text-danger delete"
+                                                         onClick={() => handleDelete(product._id)}/>
                                     </div>
-                                    <div>
-                                        <MdDeleteOutline className="text-danger delete"/>
-                                    </div>
-                                </div>
-                                <div className="cart-col-4">
-                                    <h5 className="price">18.000.000VNĐ</h5>
-                                </div>
-                            </div>
-                            <div className="cart-data py-3 mb-2 d-flex justify-content-between align-items-center">
-                                <div className="cart-col-1 gap-15 d-flex align-items-center">
-                                    <div className="w-25">
-                                        <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/g/r/group_150_1_3.png" className="img-fluid" alt=""/>
-                                    </div>
-                                    <div className="w-75">
-                                        <p>Marshall Minor 3</p>
-                                        <p>Màu sắc: Đen</p>
-                                        <p>Kích thước: </p>
+                                    <div className="cart-col-4">
+                                        <h5 className="price">{formatter.format(product.price * product.count)}</h5>
                                     </div>
                                 </div>
-                                <div className="cart-col-2">
-                                    <h5 className="price">3.000.000VNĐ</h5>
-                                </div>
-                                <div className="cart-col-3 d-flex align-items-center gap-15">
-                                    <div>
-                                        <input className="form-control" type="number" min={1} max={10} defaultValue={1}
-                                               name="" id=""/>
-                                    </div>
-                                    <div>
-                                        <MdDeleteOutline className="text-danger delete"/>
-                                    </div>
-                                </div>
-                                <div className="cart-col-4">
-                                    <h5 className="price">3.000.000VNĐ</h5>
-                                </div>
-                            </div>
+                            )) : <p>Chưa có sản phẩm</p>}
                         </div>
                         <div className="col-12 py-2 mt-4">
                             <div className="d-flex justify-content-between align-items-baseline">
-                                <Link className="button" to={"/store"}>Tiếp tục mua hàng</Link>
-                            <div className="d-flex align-items-end flex-column">
-                                <h4>Tổng tiền: 21.000.000 VNĐ</h4>
-                                <p>Phí vận chuyển sẽ được tính toán tại trang thanh toán</p>
-                                <Link className="button" to={"/checkout"}>Thanh toán</Link>
-                            </div>
+                                <Link className="button" to={"/products"}>Tiếp tục mua hàng</Link>
+                                <div className="d-flex align-items-end flex-column">
+                                    <h4>Tổng tiền: {formatter.format(cart.cartTotal)}</h4>
+                                    <p>Phí vận chuyển sẽ được tính toán tại trang thanh toán</p>
+                                    <Link className="button" to={"/checkout"}>Thanh toán</Link>
+                                </div>
                             </div>
                         </div>
                     </div>
